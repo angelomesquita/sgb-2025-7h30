@@ -3,13 +3,13 @@ from model.employee import Employee
 
 class EmployeeController:
     def __init__(self):
-        self.employess = []
+        self.employees = []
 
     def register(self, name, cpf, role, username, password):
         password_hash = self.__hash_password(password)
         employee = Employee(name, cpf, role, username, password_hash)
-        self.employess.append(employee)
-        print('Employee successfuly regitered!')
+        self.employees.append(employee)
+        print('Employee successfully registered!')
 
     #TODO: def list():
 
