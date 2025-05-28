@@ -14,7 +14,8 @@ Desenvolver um sistema de gerenciamento para biblioteca escolar utilizando os co
 - orientação a objetos
 
 ## ✅ Requisitos implementados
-- [ ] **RF001 - Cadastro de Funcionarios:** Permitir o registro de funcionários responsáveis pela biblioteca com dados como nome, cpf, cargo, login e senha.
+- [x] **RF001 - Cadastro de Funcionarios:** Permitir o registro de funcionários responsáveis pela biblioteca com dados como nome, cpf, cargo, login e senha.
+- [ ] **RF002 - Cadastro de Usuários:** Permitir o cadastro de usuários da biblioteca com nome, CPF, contato e categoria (exemplo: estudante, professor, visitante)
 
 ## 📁 Estrutura do projeto
 ```bash
