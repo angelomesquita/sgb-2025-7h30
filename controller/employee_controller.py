@@ -18,7 +18,13 @@ class EmployeeController:
         password_bytes = password.encode('utf-8')
         return bcrypt.hashpw(password_bytes, bcrypt.gensalt())
 
-    #TODO: def auth(self, username, passoword):
+    def auth(self, username, password):
+        for employee in self.employees:
+            if employee.username == username and self.__verify_password(password, employee.password_hash):
+                print(f"Welcome, {employee.name}")
+                return True
+        print("Authentication failed.")
+        return False
 
     def __verify_password(self, password, password_hash):
         return bcrypt.checkpw(password.encode('utf-8'), password_hash)
