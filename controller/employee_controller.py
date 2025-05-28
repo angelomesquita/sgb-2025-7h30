@@ -1,3 +1,4 @@
+import bcrypt
 from model.employee import Employee
 
 
@@ -14,10 +15,8 @@ class EmployeeController:
     #TODO: def list():
 
     def __hash_password(self, password):
-        return password
-        #TODO
-        #password_bytes = password.encode('utf-8')
-        #salt =
+        password_bytes = password.encode('utf-8')
+        return bcrypt.hashpw(password_bytes, bcrypt.gensalt())
 
     #TODO: def auth(self, username, passoword):
 
