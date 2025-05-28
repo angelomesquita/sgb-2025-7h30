@@ -14,4 +14,8 @@ def get_employee_data():
     password = input("Password: ")
     return name, cpf, role, username, password
 
-# TODO: def get_auth_data():
+
+def get_auth_data():
+    username = input("Username: ")
+    password = input("Password: ")
+    return username, password
