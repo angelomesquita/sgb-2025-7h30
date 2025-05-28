@@ -1,4 +1,8 @@
+import os
+
+
 def show_menu():
+    clear_screen()
     print('\n=== Library Management System ===')  # Sistema Gerenciador de Biblioteca
     print('1. Register Employee')  # Registrar Funcionário
     print('2. List Employees')  # Listar Funcionários
@@ -19,3 +23,7 @@ def get_auth_data():
     username = input("Username: ")
     password = input("Password: ")
     return username, password
+
+
+def clear_screen():
+    os.system('cls' if os.name == 'nt' else 'clear')
