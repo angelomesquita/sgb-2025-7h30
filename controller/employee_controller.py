@@ -12,7 +12,12 @@ class EmployeeController:
         self.employees.append(employee)
         print('Employee successfully registered!')
 
-    #TODO: def list():
+    def list(self):
+        if not self.employees:
+            print("No employees registered yet.")
+        print("\n=== List of Employees ===")
+        for employee in self.employees:
+            print(employee)
 
     def __hash_password(self, password):
         password_bytes = password.encode('utf-8')
