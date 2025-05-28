@@ -15,6 +15,7 @@ class EmployeeController:
     def list(self):
         if not self.employees:
             print("No employees registered yet.")
+            return
         print("\n=== List of Employees ===")
         for employee in self.employees:
             print(employee)
