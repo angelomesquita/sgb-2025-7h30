@@ -10,27 +10,20 @@ def main():
         option = input('Select an option: ')
 
         if option == '1':
-            print("\n=== Register Employee ===")
-            data = get_employee_data()
-            controller.register(*data)
-            input('Press Enter to continue...')
+            register_employee(controller)
         elif option == '2':
-            controller.list()
-            input('Press Enter to continue...')
+            list_employees(controller)
         elif option == '3':
-            print("\n=== Authenticate Employee ===")
-            auth_data = get_auth_data()
-            controller.auth(*auth_data)
-            input('Press Enter to continue...')
+            authenticate_employee(controller)
         elif option == '4':
             update_employee(controller)
         # TODO: Delete Employee
         elif option == '0':
-            print('Exiting the system.')
+            print('Exiting the system.') # Saindo do Sistema
             break
         else:
-            print('Invalid option.')
-            input('Press Enter to continue...')
+            print('Invalid option.') # Opção Inválida
+            press_enter_to_continue()
 
 
 if __name__ == '__main__':
