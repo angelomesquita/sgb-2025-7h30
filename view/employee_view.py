@@ -9,6 +9,7 @@ def show_menu():
     print('2. List Employees')  # Listar Funcionários
     print('3. Authenticate Employee')  # Autenticar Funcionário
     print('4. Update Employee') # Atualizar Funcionário
+    print('5. Delete Employee') # Deletar Funcionário
     print('0. Exit')  # Sair
 
 
@@ -39,6 +40,15 @@ def update_employee(controller):
     if employee:
         data = get_employee_data()
         controller.update(*data)
+    press_enter_to_continue()
+
+
+def delete_employee(controller):
+    print('\n=== Delete Employee ===')
+    cpf = get_cpf_data()
+    employee = controller.find(cpf)
+    if employee:
+        controller.delete(cpf)
     press_enter_to_continue()
 
 
