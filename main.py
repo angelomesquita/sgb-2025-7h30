@@ -1,5 +1,5 @@
 from controller.employee_controller import EmployeeController
-from view.employee_view import show_menu, get_employee_data, get_auth_data
+from view.employee_view import *
 
 
 def main():
@@ -22,6 +22,9 @@ def main():
             auth_data = get_auth_data()
             controller.auth(*auth_data)
             input('Press Enter to continue...')
+        elif option == '4':
+            update_employee(controller)
+        # TODO: Delete Employee
         elif option == '0':
             print('Exiting the system.')
             break
