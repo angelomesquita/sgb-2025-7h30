@@ -1,3 +1,4 @@
+from controller.auth_controller import AuthController
 import os
 
 
@@ -26,8 +27,8 @@ def list_employees(controller):
 
 def authenticate_employee(controller):
     print("\n=== Authenticate Employee ===")
-    auth_data = get_auth_data()
-    controller.auth(*auth_data)
+    username, password = get_auth_data()
+    AuthController.auth(controller.employees, username, password)
     press_enter_to_continue()
 
 
