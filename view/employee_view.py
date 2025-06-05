@@ -1,39 +1,41 @@
-from controller.auth_controller import AuthController
 import os
+from controller.auth_controller import AuthController
+from controller.employee_controller import EmployeeController
+from typing import Tuple
 
 
-def show_menu():
+def show_menu() -> None:  # Procedimento porque NÃO retorna valor
     clear_screen()
     print('\n=== Library Management System ===')  # Sistema Gerenciador de Biblioteca
     print('1. Register Employee')  # Registrar Funcionário
     print('2. List Employees')  # Listar Funcionários
     print('3. Authenticate Employee')  # Autenticar Funcionário
-    print('4. Update Employee') # Atualizar Funcionário
-    print('5. Delete Employee') # Deletar Funcionário
+    print('4. Update Employee')  # Atualizar Funcionário
+    print('5. Delete Employee')  # Deletar Funcionário
     print('0. Exit')  # Sair
 
 
-def register_employee(controller):
+def register_employee(controller: EmployeeController) -> None:
     print("\n=== Register Employee ===")
     data = get_employee_data()
     controller.register(*data)
     press_enter_to_continue()
 
 
-def list_employees(controller):
+def list_employees(controller: EmployeeController) -> None:
     print('\n=== List Employees ===')
     controller.list()
     press_enter_to_continue()
 
 
-def authenticate_employee(controller):
+def authenticate_employee(controller: EmployeeController) -> None:
     print("\n=== Authenticate Employee ===")
     username, password = get_auth_data()
     AuthController.auth(controller.employees, username, password)
     press_enter_to_continue()
 
 
-def update_employee(controller):
+def update_employee(controller: EmployeeController) -> None:
     print('\n=== Update Employee ===')
     cpf = get_cpf_data()
     employee = controller.find(cpf)
@@ -43,7 +45,7 @@ def update_employee(controller):
     press_enter_to_continue()
 
 
-def delete_employee(controller):
+def delete_employee(controller: EmployeeController) -> None:
     print('\n=== Delete Employee ===')
     cpf = get_cpf_data()
     employee = controller.find(cpf)
@@ -52,7 +54,7 @@ def delete_employee(controller):
     press_enter_to_continue()
 
 
-def get_employee_data():
+def get_employee_data() -> Tuple[str, str, str, str, str]:  # Função porque retorna valor
     name = input("Name: ")
     cpf = get_cpf_data()
     role = input("Role: ")
@@ -60,20 +62,20 @@ def get_employee_data():
     return name, cpf, role, username, password
 
 
-def get_auth_data():
+def get_auth_data() -> Tuple[str, str]:
     username = input("Username: ")
     password = input("Password: ")
     return username, password
 
 
-def get_cpf_data():
+def get_cpf_data() -> str:
     cpf = input("CPF: ")
     return cpf
 
 
-def clear_screen():
+def clear_screen() -> None:
     os.system('cls' if os.name == 'nt' else 'clear')
 
 
-def press_enter_to_continue():
+def press_enter_to_continue() -> None:
     input('Press Enter to continue...')
