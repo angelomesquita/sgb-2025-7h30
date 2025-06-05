@@ -2,7 +2,7 @@ class Employee:
 
     # TODO: apply encapsulation by converting attributes to private or protected instead of public
 
-    def __init__(self, name, cpf, role, username, password_hash):
+    def __init__(self, name: str, cpf: str, role: str, username: str, password_hash: str):
         self.name = name
         self.cpf = cpf
         self.role = role
