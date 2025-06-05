@@ -55,7 +55,7 @@ class EmployeeController:
                     employee.password_hash = Auth.hash_password(password)
                 print(f'Employee {employee.name} successfully updated!\n')
                 return
-        print('Employee not found!\n')
+        self.__employee_not_found()
 
     def delete(self, cpf: str) -> None:
         for employee in self.employees:
@@ -63,4 +63,16 @@ class EmployeeController:
                 employee.deleted = True
                 print('Employee successfully deleted!\n')
                 return
-        print('Employee not found!\n')
+        self.__employee_not_found()
+
+    def restore(self, cpf: str) -> None:
+        for employee in self.employees:
+            if employee.cpf == cpf and employee.deleted is True:
+                employee.deleted = False
+                print('Employee successfully restored!\n')
+                return
+        self.__employee_not_found()
+
+    @staticmethod
+    def __employee_not_found() -> None:
+        print('Employee not found.\n')

@@ -12,6 +12,7 @@ def show_menu() -> None:  # Procedimento porque NÃO retorna valor
     print('3. Authenticate Employee')  # Autenticar Funcionário
     print('4. Update Employee')  # Atualizar Funcionário
     print('5. Delete Employee')  # Deletar Funcionário
+    print('6. Restore Employee')  # Restaurar Funcionário
     print('0. Exit')  # Sair
 
 
@@ -53,6 +54,17 @@ def delete_employee(controller: EmployeeController) -> None:
     employee = controller.find(cpf)
     if employee:
         controller.delete(cpf)
+    else:
+        employee_not_found()
+    press_enter_to_continue()
+
+
+def restore_employee(controller: EmployeeController) -> None:
+    print('\n=== Restore Employee ===')
+    cpf = get_cpf_data()
+    employee = controller.find_deleted(cpf)
+    if employee:
+        controller.restore(cpf)
     else:
         employee_not_found()
     press_enter_to_continue()
