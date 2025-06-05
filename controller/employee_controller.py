@@ -8,6 +8,9 @@ class EmployeeController:
         self.employees = []
 
     def register(self, name: str, cpf: str, role: str, username: str, password: str) -> None:
+        if self.find(cpf):
+            print('An Employee with this CPF is already registered!\n')
+            return
         password_hash = Auth.hash_password(password)
         employee = Employee(name, cpf, role, username, password_hash)
         self.employees.append(employee)
@@ -28,7 +31,6 @@ class EmployeeController:
         for employee in self.employees:
             if employee.cpf == cpf and employee.deleted is not True:
                 return employee
-        print('Employee not found.\n')
         return None
 
     def update(self, name: str, cpf: str, role: str, username: str, password: str) -> None:

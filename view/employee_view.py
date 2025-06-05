@@ -42,6 +42,8 @@ def update_employee(controller: EmployeeController) -> None:
     if employee:
         data = get_employee_data()
         controller.update(*data)
+    else:
+        employee_not_found()
     press_enter_to_continue()
 
 
@@ -51,6 +53,8 @@ def delete_employee(controller: EmployeeController) -> None:
     employee = controller.find(cpf)
     if employee:
         controller.delete(cpf)
+    else:
+        employee_not_found()
     press_enter_to_continue()
 
 
@@ -79,3 +83,7 @@ def clear_screen() -> None:
 
 def press_enter_to_continue() -> None:
     input('Press Enter to continue...')
+
+
+def employee_not_found() -> None:
+    print('Employee not found.\n')
