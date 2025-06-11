@@ -1,5 +1,6 @@
 from model.auth import Auth
 from model.cpf import Cpf
+from model.password import Password
 from model.employee import Employee
 from typing import Optional
 
@@ -15,10 +16,13 @@ class EmployeeController:
         if self.find_deleted(cpf):
             print('An Employee with this CPF was previously deleted.\n')
             return
-        password_hash = Auth.hash_password(password)
         if not Cpf.validate(cpf):
             print('Invalid CPF. Try again.\n')
             return
+        if not Password.validate(password):
+            print('Invalid Password. Try again.\n')
+            return
+        password_hash = Auth.hash_password(password)
         employee = Employee(name, cpf, role, username, password_hash)
         self.employees.append(employee)
         print('Employee successfully registered!')

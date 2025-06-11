@@ -2,6 +2,7 @@ import os
 from controller.auth_controller import AuthController
 from controller.employee_controller import EmployeeController
 from model.cpf import Cpf
+from model.password import Password
 from typing import Tuple
 
 
@@ -81,8 +82,11 @@ def get_employee_data() -> Tuple[str, str, str, str, str]:  # Função porque re
 
 def get_auth_data() -> Tuple[str, str]:
     username = input("Username: ")
-    password = input("Password: ")
-    return username, password
+    while True:
+        password = input("Password: ")
+        if Password.validate(password):
+            return username, password
+        print('Invalid Password. Try again.\n')
 
 
 def get_cpf_data() -> str:
