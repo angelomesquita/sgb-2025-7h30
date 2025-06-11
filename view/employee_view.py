@@ -1,6 +1,7 @@
 import os
 from controller.auth_controller import AuthController
 from controller.employee_controller import EmployeeController
+from model.cpf import Cpf
 from typing import Tuple
 
 
@@ -85,8 +86,11 @@ def get_auth_data() -> Tuple[str, str]:
 
 
 def get_cpf_data() -> str:
-    cpf = input("CPF: ")
-    return cpf
+    while True:
+        cpf = input("CPF: ")
+        if Cpf.validate(cpf):
+            return cpf
+        print('Invalid CPF. Try again.\n')
 
 
 def clear_screen() -> None:

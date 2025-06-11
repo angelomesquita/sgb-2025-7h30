@@ -1,4 +1,5 @@
 from model.auth import Auth
+from model.cpf import Cpf
 from model.employee import Employee
 from typing import Optional
 
