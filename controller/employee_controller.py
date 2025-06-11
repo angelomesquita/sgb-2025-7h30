@@ -13,9 +13,12 @@ class EmployeeController:
             print('An Employee with this CPF is already registered!\n')
             return
         if self.find_deleted(cpf):
-            print('An Employee with this CPF was previously deleted.')
+            print('An Employee with this CPF was previously deleted.\n')
             return
         password_hash = Auth.hash_password(password)
+        if not Cpf.validate(cpf):
+            print('Invalid CPF. Try again.\n')
+            return
         employee = Employee(name, cpf, role, username, password_hash)
         self.employees.append(employee)
         print('Employee successfully registered!')
