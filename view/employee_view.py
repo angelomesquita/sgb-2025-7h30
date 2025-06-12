@@ -7,7 +7,6 @@ from typing import Tuple
 
 
 class EmployeeView:
-
     __EMPLOYEE_NOT_FOUND = 'Employee not found.\n'
     __INVALID_OPTION = 'Invalid option\n'
 
@@ -29,22 +28,21 @@ class EmployeeView:
 
             option = input('Select an option: ')
 
-            if option == '1':
-                self.register()
-            elif option == '2':
-                self.list()
-            elif option == '3':
-                self.authenticate()
-            elif option == '4':
-                self.update()
-            elif option == '5':
-                self.delete()
-            elif option == '6':
-                self.restore()
-            elif option == '0':
-                break
+            menu_actions = {
+                '1': self.register,
+                '2': self.list,
+                '3': self.authenticate,
+                '4': self.update,
+                '5': self.delete,
+                '6': self.restore,
+                '0': lambda: 'exit'
+            }
+            action = menu_actions.get(option)
+            if action:
+                if action() == 'exit':
+                    break
             else:
-                print(self.__INVALID_OPTION) # Opção Inválida
+                print(self.__INVALID_OPTION)  # Opção Inválida
                 self.press_enter_to_continue()
 
     def register(self) -> None:
