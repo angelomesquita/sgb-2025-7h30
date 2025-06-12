@@ -1,32 +1,35 @@
-from controller.employee_controller import EmployeeController
-from view.employee_view import *
+from view.employee_view import EmployeeView
 
 
 def main():
-    controller = EmployeeController()
 
     while True:
-        show_menu()
+        show_app_menu()
+
         option = input('Select an option: ')
 
         if option == '1':
-            register_employee(controller)
+            employee_view = EmployeeView()
+            employee_view.show_menu()
+            EmployeeView.clear_screen()
         elif option == '2':
-            list_employees(controller)
-        elif option == '3':
-            authenticate_employee(controller)
-        elif option == '4':
-            update_employee(controller)
-        elif option == '5':
-            delete_employee(controller)
-        elif option == '6':
-            restore_employee(controller)
+            #custormer_view = CustomerView()
+            #custormer_view.show_menu()
+            #CustomerView.clear_screen()
+            print('Menu do módulo de usuário')
         elif option == '0':
             print('Exiting the system.') # Saindo do Sistema
             break
         else:
             print('Invalid option.') # Opção Inválida
-            press_enter_to_continue()
+            EmployeeView.press_enter_to_continue()
+
+
+def show_app_menu():
+    print('\n=== Library Management System ===')  # Sistema Gerenciador de Bibliotecas
+    print('1. Employee Module')  # Módulo Funcionários
+    print('2. Customer Module')  # Módulo Usuário (Estudante, Professor ou Visitante)
+    print('0. Exit')  # Sair do Sistema
 
 
 if __name__ == '__main__':
