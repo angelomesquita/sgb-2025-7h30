@@ -1,6 +1,7 @@
 class Password:
 
+    _LENGTH = 6
+
     @staticmethod
     def validate(password: str) -> bool:
-        return len(password) >= 6
-
+        return len(password) >= Password._LENGTH

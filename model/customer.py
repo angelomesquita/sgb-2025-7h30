@@ -3,7 +3,7 @@ class Customer:
     # TODO: apply encapsulation by converting attributes to private or protected instead of public
 
     def __init__(self, name: str, cpf: str, contact: str, category: str, password_hash: str):
-        # TODO Is customer equals to Employee?
+        # TODO Is Customer equals to Employee?
         self.name = name
         self.cpf = cpf
         self.contact = contact
