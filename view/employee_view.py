@@ -1,12 +1,13 @@
-import os
+from typing import Tuple
+
 from controller.auth_controller import AuthController
 from controller.employee_controller import EmployeeController
 from model.cpf import Cpf
 from model.password import Password
-from typing import Tuple
+from view.view import View
 
 
-class EmployeeView:
+class EmployeeView(View):
     __EMPLOYEE_NOT_FOUND = 'Employee not found.\n'
     __INVALID_OPTION = 'Invalid option\n'
 
@@ -17,7 +18,7 @@ class EmployeeView:
         while True:
             self.clear_screen()
 
-            print('\n=== Library Management System ===')  # Sistema Gerenciador de Biblioteca
+            print('\n=== Employee Module ===')  # Módulo de Funcionário
             print('1. Register Employee')  # Registrar Funcionário
             print('2. List Employees')  # Listar Funcionários
             print('3. Authenticate Employee')  # Autenticar Funcionário
@@ -114,11 +115,3 @@ class EmployeeView:
             if Cpf.validate(cpf):
                 return cpf
             print('Invalid CPF. Try again.\n')
-
-    @staticmethod
-    def clear_screen() -> None:
-        os.system('cls' if os.name == 'nt' else 'clear')
-
-    @staticmethod
-    def press_enter_to_continue() -> None:
-        input('Press Enter to continue...')

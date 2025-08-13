@@ -1,4 +1,5 @@
 from view.employee_view import EmployeeView
+from view.customer_view import CustomerView
 
 
 def main():
@@ -12,9 +13,9 @@ def option_1() -> None:
 
 
 def option_2() -> None:
-    # custormer_view = CustomerView()
-    #custormer_view.show_menu()
-    #CustomerView.clear_screen()
+    customer_view = CustomerView()
+    customer_view.show_menu()
+    CustomerView.clear_screen()
     print('Menu do módulo de usuário')
 
 
