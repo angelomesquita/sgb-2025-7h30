@@ -3,11 +3,12 @@ from typing import Optional
 from model.auth import Auth
 from model.category import Category
 from model.customer import Customer
+from model.customer_dao import CustomerDao
 
 
 class CustomerController:
     def __init__(self):
-        self.customers = []  # TODO: Lição 10 - Python: Trabalhando com I/O
+        self.customers = CustomerDao.load_all()
 
     def register(self, name: str, cpf: str, contact: str, category: str, password: str) -> None:
         if self.find(cpf):
@@ -22,6 +23,7 @@ class CustomerController:
         password_hash = Auth.hash_password(password)
         customer = Customer(name, cpf, contact, category, str(password_hash))
         self.customers.append(customer)
+        CustomerDao.save_all(self.customers)
         print('✅ Customer successfully registered!')
 
     def list(self) -> None:
@@ -58,6 +60,7 @@ class CustomerController:
                     customer.category = category
                 if password is not None:
                     customer.password_hash = Auth.hash_password(password)
+                CustomerDao.save_all(self.customers)
                 print('Customer successfully updated!\n')
                 return
             self.__customer_not_found()
@@ -66,6 +69,7 @@ class CustomerController:
         for customer in self.customers:
             if customer.cpf == cpf and customer.deleted is not True:
                 customer.deleted = True
+                CustomerDao.save_all(self.customers)
                 print('Customer successfully deleted!\n')
                 return
         self.__customer_not_found()
@@ -74,6 +78,7 @@ class CustomerController:
         for customer in self.customers:
             if customer.cpf == cpf and customer.deleted is True:
                 customer.deleted = False
+                CustomerDao.save_all(self.customers)
                 print('Customer successfully restored!\n')
                 return
         self.__customer_not_found()

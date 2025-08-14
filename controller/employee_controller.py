@@ -2,12 +2,13 @@ from model.auth import Auth
 from model.cpf import Cpf
 from model.password import Password
 from model.employee import Employee
+from model.employee_dao import EmployeeDao
 from typing import Optional
 
 
 class EmployeeController:
     def __init__(self):
-        self.employees = []
+        self.employees = EmployeeDao.load_all()
 
     def register(self, name: str, cpf: str, role: str, username: str, password: str) -> None:
         if self.find(cpf):
@@ -25,6 +26,7 @@ class EmployeeController:
         password_hash = Auth.hash_password(password)
         employee = Employee(name, cpf, role, username, password_hash)
         self.employees.append(employee)
+        EmployeeDao.save_all(self.employees)
         print('Employee successfully registered!')
 
     def list(self) -> None:
@@ -61,6 +63,7 @@ class EmployeeController:
                     employee.username = username
                 if password is not None:
                     employee.password_hash = Auth.hash_password(password)
+                EmployeeDao.save_all(self.employees)
                 print(f'Employee {employee.name} successfully updated!\n')
                 return
         self.__employee_not_found()
@@ -69,6 +72,7 @@ class EmployeeController:
         for employee in self.employees:
             if employee.cpf == cpf and employee.deleted is not True:
                 employee.deleted = True
+                EmployeeDao.save_all(self.employees)
                 print('Employee successfully deleted!\n')
                 return
         self.__employee_not_found()
@@ -77,6 +81,7 @@ class EmployeeController:
         for employee in self.employees:
             if employee.cpf == cpf and employee.deleted is True:
                 employee.deleted = False
+                EmployeeDao.save_all(self.employees)
                 print('Employee successfully restored!\n')
                 return
         self.__employee_not_found()
