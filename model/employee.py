@@ -1,14 +1,28 @@
-class Employee:
+from model.person import Person
 
-    # TODO: apply encapsulation by converting attributes to private or protected instead of public
 
-    def __init__(self, name: str, cpf: str, role: str, username: str, password_hash: str):
-        self.name = name
-        self.cpf = cpf
-        self.role = role
-        self.username = username
-        self.password_hash = password_hash
-        self.deleted = False
+class Employee(Person):
+
+    def __init__(self, name: str, cpf: str, role: str, username: str, password_hash: str, deleted: bool = False):
+        super().__init__(name, cpf, password_hash, deleted)
+        self._role = role
+        self._username = username
+
+    @property
+    def role(self) -> str:
+        return self._role
+
+    @role.setter
+    def role(self, value: str) -> None:
+        self._role = value
+
+    @property
+    def username(self) -> str:
+        return self._username
+
+    @username.setter
+    def username(self, value: str) -> None:
+        self._username = value
 
     def __str__(self):
         return f'Name: {self.name}, CPF: {self.cpf}, Role: {self.role}, Login: {self.username}'
