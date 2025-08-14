@@ -42,6 +42,7 @@ Abstract Methods:
 
 
 class BaseDao(ABC, Generic[T]):
+
     _FILE_PATH: str
 
     @classmethod
