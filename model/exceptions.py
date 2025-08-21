@@ -7,6 +7,7 @@ readability throughout the application, following the principles of explicitness
 
 Hierarchy:
     - EmployeeError (base class for all Employee-related exceptions)
+        - AuthenticationError
         - EmployeeLoadError
         - EmployeeAlreadyExistsError
         - EmployeeDeletedError
@@ -18,6 +19,11 @@ Hierarchy:
 
 class EmployeeError(Exception):
     """Base class for Employee-related errors."""
+    pass
+
+
+class AuthenticationError(EmployeeError):
+    """Raised when authentication fails for an employee."""
     pass
 
 
