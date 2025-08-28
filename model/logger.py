@@ -14,6 +14,7 @@ Configuration:
 Available Loggers:
     - app_logger -> General application-level logs.
     - employee_logger -> Logs related to employee operations.
+    - customer_logger -> Logs related to customer operations.
     - auth_logger -> Logs related to authentication and authorization.
 
 Usage Example:
@@ -45,4 +46,5 @@ logging.basicConfig(
 # loggers
 app_logger = logging.getLogger("App")
 employee_logger = logging.getLogger("Employee")
+customer_logger = logging.getLogger("Customer")
 auth_logger = logging.getLogger("Auth")
