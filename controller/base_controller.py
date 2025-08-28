@@ -39,9 +39,6 @@ class BaseController(ABC, Generic[T]):
         if self.find_deleted(cpf):
             print('An entry with this CPF was previously deleted.\n')
             return
-        if not Cpf.validate(cpf):
-            print('Invalid CPF. Try again.\n')
-            return
 
         if "password" in kwargs:
             password = kwargs.pop("password")
@@ -51,7 +48,7 @@ class BaseController(ABC, Generic[T]):
                 return
             kwargs["password_hash"] = Auth.hash_password(password)
 
-        item = self.create_instance(cpf=cpf, *kwargs)
+        item = self.create_instance(cpf=cpf, **kwargs)
         self.items.append(item)
         self.dao_class.save_all(self.items)
         print(f'✅ {item.__class__.__name__} successfully registered!')
