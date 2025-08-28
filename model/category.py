@@ -6,7 +6,6 @@ class Category:
     TEACHER = 'teacher'
     VISITOR = 'visitor'
 
-    # TODO: Lição 13 Módulo de coleções: listas, tuplas, conjuntos e dicionários
     _TRANSLATIONS = {
         STUDENT: 'estudante',
         TEACHER: 'professor',

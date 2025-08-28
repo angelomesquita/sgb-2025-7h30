@@ -30,7 +30,6 @@ def invalid_option() -> True:
     return True  # continuar no loop
 
 
-# TODO: Lição 13 Módulo de coleções: listas, tuplas, conjuntos e dicionários
 menu_actions = {
     '1': option_1,
     '2': option_2,
