@@ -3,6 +3,8 @@ from abc import ABC, abstractmethod
 from typing import Generic, List, Optional, Type, TypeVar
 from model.auth import Auth
 from model.base_dao import BaseDao
+from model.cpf import Cpf
+from model.password import Password
 
 T = TypeVar("T")  # Generic Type (Customer, Employee, Etc...)
 D = TypeVar("D")  # Generic Type (DAO)
@@ -37,9 +39,16 @@ class BaseController(ABC, Generic[T]):
         if self.find_deleted(cpf):
             print('An entry with this CPF was previously deleted.\n')
             return
+        if not Cpf.validate(cpf):
+            print('Invalid CPF. Try again.\n')
+            return
 
         if "password" in kwargs:
             password = kwargs.pop("password")
+
+            if not Password.validate(password):
+                print('Invalid Password. Try again.\n')
+                return
             kwargs["password_hash"] = Auth.hash_password(password)
 
         item = self.create_instance(cpf=cpf, *kwargs)
