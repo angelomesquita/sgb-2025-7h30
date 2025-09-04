@@ -16,18 +16,17 @@ def option_2() -> None:
     customer_view = CustomerView()
     customer_view.show_menu()
     CustomerView.clear_screen()
-    print('Menu do módulo de usuário')
 
 
 def option_0() -> False:
-    print('Exiting the system.')  # saindo do sistema
+    print('Exiting the system.')
     return False
 
 
 def invalid_option() -> True:
-    print('Invalid option.')  # Opção Inválida
+    print('Invalid option.')
     EmployeeView.press_enter_to_continue()
-    return True  # continuar no loop
+    return True
 
 
 menu_actions = {
@@ -41,10 +40,10 @@ def show_app_menu() -> None:
     running = True
     while running:
         EmployeeView.clear_screen()
-        print('\n=== Library Management System ===')  # Sistema Gerenciador de Bibliotecas
-        print('1. Employee Module')  # Módulo Funcionários
-        print('2. Customer Module')  # Módulo Usuário (Estudante, Professor ou Visitante)
-        print('0. Exit')  # Sair do Sistema
+        print('\n=== Library Management System ===')
+        print('1. Employee Module')
+        print('2. Customer Module')
+        print('0. Exit')
 
         option = input('Select an option: ')
         action = menu_actions.get(option, invalid_option)
