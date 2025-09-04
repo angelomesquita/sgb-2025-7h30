@@ -15,6 +15,13 @@ class BaseController(ABC, Generic[T]):
     dao_class: Type[BaseDao[T]]
     logger: logging.Logger = logging.getLogger(__name__)
 
+    AlreadyExistsError: Type[Exception] = Exception
+    DeletedError: Type[Exception] = Exception
+    RestoredError: Type[Exception] = Exception
+    NotFoundError: Type[Exception] = Exception
+    LoadError: Type[Exception] = Exception
+    InvalidCpfError: Type[Exception] = Exception
+
     def __init__(self):
         self.items: List[T] = []
         try:

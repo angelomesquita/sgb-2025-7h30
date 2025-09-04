@@ -2,12 +2,27 @@ from controller.base_controller import BaseController
 from model.employee import Employee
 from model.employee_dao import EmployeeDao
 from model.logger import employee_logger
+from model.exceptions import (
+    EmployeeAlreadyExistsError,
+    EmployeeDeletedError,
+    EmployeeRestoreError,
+    EmployeeNotFoundError,
+    EmployeeLoadError,
+    InvalidCpfError
+)
 
 
 class EmployeeController(BaseController[Employee]):
 
     dao_class = EmployeeDao
     logger = employee_logger
+
+    AlreadyExistsError = EmployeeAlreadyExistsError
+    DeletedError: EmployeeDeletedError
+    RestoredError: EmployeeRestoreError
+    NotFoundError: EmployeeNotFoundError
+    LoadError: EmployeeLoadError
+    InvalidCpfError: InvalidCpfError
 
     def register(self, name: str, cpf: str, role: str, username: str, password: str) -> None:
         super().register(cpf, name=name, role=role, username=username, password=password)

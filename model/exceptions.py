@@ -26,6 +26,11 @@ class InvalidCpfError(AppError):
     pass
 
 
+class LoadError(AppError):
+    """Raised when DAO fails to load items."""
+    pass
+
+
 # --------------
 # Employee-related exceptions
 # --------------
@@ -56,7 +61,7 @@ class EmployeeNotFoundError(EmployeeError):
     pass
 
 
-class EmployeeLoadError(EmployeeError):
+class EmployeeLoadError(EmployeeError, LoadError):
     """Raised when there is an error loading employee data from storage."""
     pass
 
@@ -90,6 +95,6 @@ class CustomerNotFoundError(CustomerError):
     pass
 
 
-class CustomerLoadError(CustomerError):
+class CustomerLoadError(CustomerError, LoadError):
     """Raised when there is an error loading customer data from storage."""
     pass
