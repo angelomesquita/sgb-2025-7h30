@@ -59,4 +59,3 @@ class Cpf:
         if not digits:
             return 0
         return int(digits[0]) * weight + Cpf.__recursive_weighted_sum(digits[1:], weight - 1)
-

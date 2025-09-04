@@ -1,3 +1,4 @@
+from getpass import getpass
 from typing import Tuple
 
 from controller.auth_controller import AuthController
@@ -14,18 +15,18 @@ class EmployeeView(View):
     def __init__(self):
         self.controller = EmployeeController()
 
-    def show_menu(self) -> None:  # método
+    def show_menu(self) -> None:
         while True:
             self.clear_screen()
 
-            print('\n=== Employee Module ===')  # Módulo de Funcionário
-            print('1. Register Employee')  # Registrar Funcionário
-            print('2. List Employees')  # Listar Funcionários
-            print('3. Authenticate Employee')  # Autenticar Funcionário
-            print('4. Update Employee')  # Atualizar Funcionário
-            print('5. Delete Employee')  # Deletar Funcionário
-            print('6. Restore Employee')  # Restaurar Funcionário
-            print('0. Back to main menu')  # Voltar para o Menu Principal
+            print('\n=== Employee Module ===')
+            print('1. Register Employee')
+            print('2. List Employees')
+            print('3. Authenticate Employee')
+            print('4. Update Employee')
+            print('5. Delete Employee')
+            print('6. Restore Employee')
+            print('0. Back to main menu')
 
             option = input('Select an option: ')
 
@@ -43,7 +44,7 @@ class EmployeeView(View):
                 if action() == 'exit':
                     break
             else:
-                print(self.__INVALID_OPTION)  # Opção Inválida
+                print(self.__INVALID_OPTION)
                 self.press_enter_to_continue()
 
     def register(self) -> None:
@@ -94,22 +95,24 @@ class EmployeeView(View):
             print(self.__EMPLOYEE_NOT_FOUND)
         self.press_enter_to_continue()
 
-    def get_employee_data(self) -> Tuple[str, str, str, str, str]:  # Método
+    def get_employee_data(self) -> Tuple[str, str, str, str, str]:
         name = input("Name: ")
         cpf = self.get_cpf_data()
         role = input("Role: ")
         username, password = self.get_auth_data()
         return name, cpf, role, username, password
 
-    def get_auth_data(self) -> Tuple[str, str]:
+    @staticmethod
+    def get_auth_data() -> Tuple[str, str]:
         username = input("Username: ")
         while True:
-            password = input("Password: ")
+            password = getpass("Password: ")
             if Password.validate(password):
                 return username, password
             print('Invalid Password. Try again.\n')
 
-    def get_cpf_data(self) -> str:
+    @staticmethod
+    def get_cpf_data() -> str:
         while True:
             cpf = input("CPF: ")
             if Cpf.validate(cpf):

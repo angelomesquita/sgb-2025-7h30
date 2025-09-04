@@ -1,10 +1,10 @@
 import logging
 from abc import ABC, abstractmethod
 from typing import Generic, List, Optional, Type, TypeVar
+
 from model.auth import Auth
 from model.base_dao import BaseDao
 from model.cpf import Cpf
-from model.password import Password
 
 T = TypeVar("T")  # Generic Type (Customer, Employee, Etc...)
 D = TypeVar("D")  # Generic Type (DAO)

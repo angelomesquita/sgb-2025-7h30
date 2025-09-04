@@ -7,7 +7,7 @@ from model.exceptions import AuthenticationError
 class Auth:
 
     @staticmethod
-    def hash_password(password: str) -> bytes:
+    def hash_password(password: str) -> str:
         """Hashes a password using bcrypt"""
         try:
             password_bytes = password.encode('utf-8')

@@ -14,17 +14,17 @@ class CustomerView(View):
     def __init__(self):
         self.controller = CustomerController()
 
-    def show_menu(self) -> None:  # método
+    def show_menu(self) -> None:
         while True:
             self.clear_screen()
 
-            print('\n=== Customer Module ===')  # Módulo de Usuário
-            print('1. Register Customer')  # Registrar Usuário
-            print('2. List Customers')  # Listar Usuário
-            print('3. Update Customers')  # Atualizar Usuário
-            print('4. Delete Customers')  # Deletar Usuário
-            print('5. Restore Customers')  # Restaurar Usuário
-            print('0. Back to main menu')  # Voltar para o Menu Principal
+            print('\n=== Customer Module ===')
+            print('1. Register Customer')
+            print('2. List Customers')
+            print('3. Update Customers')
+            print('4. Delete Customers')
+            print('5. Restore Customers')
+            print('0. Back to main menu')
 
             option = input('Select an option: ')
 
@@ -41,7 +41,7 @@ class CustomerView(View):
                 if action() == 'exit':
                     break
             else:
-                print(self.__INVALID_OPTION)  # Opção Inválida
+                print(self.__INVALID_OPTION)
                 self.press_enter_to_continue()
 
     def register(self) -> None:
@@ -91,7 +91,7 @@ class CustomerView(View):
         self.press_enter_to_continue()
         self.clear_screen()
 
-    def get_customer_data(self) -> Tuple[str, str, str, str, str]:  # Método
+    def get_customer_data(self) -> Tuple[str, str, str, str, str]:
         name = input("Name: ")
         cpf = self.get_cpf_data()
         contact = input("Contact: ")
@@ -109,7 +109,6 @@ class CustomerView(View):
             choice = input('Enter the category number: ')
             if choice.isdigit() and 1 <= int(choice) <= len(options):
                 return options[int(choice)-1][0]
-        return 'Invalid choice. Tray again.'
 
     @staticmethod
     def get_cpf_data() -> str:
