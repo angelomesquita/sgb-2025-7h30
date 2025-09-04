@@ -29,7 +29,7 @@ class BaseController(ABC, Generic[T]):
         pass
 
     def register(self, *args, **kwargs) -> None:
-        cpf = kwargs.get("cpf") or (args[1] if len(args) > 1 else None)
+        cpf = kwargs.get("cpf") or (args[0] if len(args) == 1 else None)
         self._register_logic(cpf, **kwargs)
 
     def _register_logic(self, cpf: str, **kwargs) -> None:
@@ -39,19 +39,20 @@ class BaseController(ABC, Generic[T]):
         if self.find_deleted(cpf):
             print('An entry with this CPF was previously deleted.\n')
             return
+        if not Cpf.validate(cpf):
+            print('Invalid CPF. Try again.\n')
+            return
 
         if "password" in kwargs:
             password = kwargs.pop("password")
-
-            if not Password.validate(password):
-                print('Invalid Password. Try again.\n')
-                return
             kwargs["password_hash"] = Auth.hash_password(password)
 
         item = self.create_instance(cpf=cpf, **kwargs)
         self.items.append(item)
         self.dao_class.save_all(self.items)
-        print(f'✅ {item.__class__.__name__} successfully registered!')
+        message = f'✅ {item.__class__.__name__} successfully registered!'
+        self.logger.info(f"{message} [{item}]")
+        print(message)
 
     def list(self) -> None:
         if not self.items:
@@ -77,7 +78,7 @@ class BaseController(ABC, Generic[T]):
         return None
     
     def update(self, *args, **kwargs) -> None:
-        cpf = kwargs.get("cpf") or (args[1] if len(args) > 1 else None)
+        cpf = kwargs.get("cpf") or (args[0] if len(args) == 1 else None)
         self._update_logic(cpf, **kwargs)
     
     def _update_logic(self, cpf: str, **kwargs) -> None:
@@ -90,7 +91,9 @@ class BaseController(ABC, Generic[T]):
                         else:
                             setattr(item, field, value)
                 self.dao_class.save_all(self.items)
-                print(f'{item.__class__.__name__} successfully updated!\n')
+                message = f'{item.__class__.__name__} successfully updated!\n'
+                self.logger.info(f"{message} [{item}]")
+                print(message)
                 return
         self.__entry_not_found()
     
@@ -98,7 +101,9 @@ class BaseController(ABC, Generic[T]):
         for item in self.items:
             if item.cpf == cpf and item.deleted is not True:
                 item.deleted = True
-                print(f'{item.__class__.__name__} successfully deleted!\n')
+                message = f'{item.__class__.__name__} successfully deleted!\n'
+                self.logger.info(f"{message} [{item}]")
+                print(message)
                 self.dao_class.save_all(self.items)
                 return
         self.__entry_not_found()
@@ -108,7 +113,9 @@ class BaseController(ABC, Generic[T]):
             if item.cpf == cpf and item.deleted is True:
                 item.deleted = False
                 self.dao_class.save_all(self.items)
-                print(f'{item.__class__.__name__} successfully restored!\n')
+                message = f'{item.__class__.__name__} successfully restored!\n'
+                self.logger.info(f"{message} [{item}]")
+                print(message)
                 return
         self.__entry_not_found()
 

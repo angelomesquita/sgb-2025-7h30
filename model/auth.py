@@ -11,7 +11,7 @@ class Auth:
         """Hashes a password using bcrypt"""
         try:
             password_bytes = password.encode('utf-8')
-            hashed = bcrypt.hashpw(password_bytes, bcrypt.gensalt())
+            hashed = bcrypt.hashpw(password_bytes, bcrypt.gensalt()).decode('utf-8')
             auth_logger.debug("Password hashed successfully.")
             return hashed
         except Exception as error:
@@ -22,9 +22,7 @@ class Auth:
     def verify_password(password: str, password_hash: str) -> bool:
         """Verifies a plain password against a bcrypt hash."""
         try:
-            if isinstance(password_hash, str):
-                password_hash = password_hash.encode('utf-8')
-            valid = bcrypt.checkpw(password.encode('utf-8'), password_hash)
+            valid = bcrypt.checkpw(password.encode('utf-8'), password_hash.encode('utf-8'))
             auth_logger.debug(f"Password verification result {valid}")
             return valid
         except Exception as error:
