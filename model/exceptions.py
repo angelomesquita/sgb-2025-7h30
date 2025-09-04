@@ -2,33 +2,37 @@
 exceptions.py
 
 This module defines custom exceptions classes related to app management.
-These exceptions are intended to provide meaningful error handling and improve
-readability throughout the application, following the principles of explicitness.
-
-Hierarchy:
-    - EmployeeError (base class for all Employee-related exceptions)
-        - AuthenticationError
-        - EmployeeLoadError
-        - EmployeeAlreadyExistsError
-        - EmployeeDeletedError
-        - EmployeeRestoreError
-        - EmployeeNotFoundError
-        - InvalidCpfError
+It uses hierarchies so that BaseController can raise exceptions polymorphic ally.
 """
 
 
-class EmployeeError(Exception):
+# --------------
+# Base Exceptions (common)
+# --------------
+
+
+class AppError(Exception):
+    """Base class for all application errors."""
+    pass
+
+
+class AuthenticationError(AppError):
+    """Raised when authentication fails."""
+    pass
+
+
+class InvalidCpfError(AppError):
+    """Raised when CPF validation fails."""
+    pass
+
+
+# --------------
+# Employee-related exceptions
+# --------------
+
+
+class EmployeeError(AppError):
     """Base class for Employee-related errors."""
-    pass
-
-
-class AuthenticationError(EmployeeError):
-    """Raised when authentication fails for an employee."""
-    pass
-
-
-class EmployeeLoadError(EmployeeError):
-    """Raised when there is an error loading employee data from storage."""
     pass
 
 
@@ -52,6 +56,40 @@ class EmployeeNotFoundError(EmployeeError):
     pass
 
 
-class InvalidCpfError(EmployeeError):
-    """Raised when CPF validation fails."""
+class EmployeeLoadError(EmployeeError):
+    """Raised when there is an error loading employee data from storage."""
+    pass
+
+# --------------
+# Customer-related exceptions
+# --------------
+
+
+class CustomerError(AppError):
+    """Base class for Customer-related errors."""
+    pass
+
+
+class CustomerAlreadyExistsError(CustomerError):
+    """Raised when trying to register a customer with an existing CPF."""
+    pass
+
+
+class CustomerDeletedError(CustomerError):
+    """Raised when trying to register/update a deleted customer"""
+    pass
+
+
+class CustomerRestoreError(CustomerError):
+    """Raised when trying to restore an active/new customer"""
+    pass
+
+
+class CustomerNotFoundError(CustomerError):
+    """Raised when customer cannot be found."""
+    pass
+
+
+class CustomerLoadError(CustomerError):
+    """Raised when there is an error loading customer data from storage."""
     pass
