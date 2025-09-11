@@ -98,3 +98,37 @@ class CustomerNotFoundError(CustomerError):
 class CustomerLoadError(CustomerError, LoadError):
     """Raised when there is an error loading customer data from storage."""
     pass
+
+# --------------
+# Author-related exceptions
+# --------------
+
+
+class AuthorError(AppError):
+    """Base class for Author-related errors."""
+    pass
+
+
+class AuthorAlreadyExistsError(AuthorError):
+    """Raised when trying to register an author."""
+    pass
+
+
+class AuthorDeletedError(AuthorError):
+    """Raised when trying to register/update a deleted author"""
+    pass
+
+
+class AuthorRestoreError(AuthorError):
+    """Raised when trying to restore an active/new author"""
+    pass
+
+
+class AuthorNotFoundError(AuthorError):
+    """Raised when author cannot be found."""
+    pass
+
+
+class AuthorLoadError(AuthorError, LoadError):
+    """Raised when there is an error loading author data from storage."""
+    pass
