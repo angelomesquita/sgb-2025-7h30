@@ -8,12 +8,12 @@ class AuthorDao(BaseDao[Author]):
 
     @staticmethod
     def _serialize(a: Author) -> str:
-        return f"{a.name}|{a.deleted}"
+        return f"{a.author_id}|{a.name}|{a.deleted}"
 
     @staticmethod
     def _deserialize(data: str) -> Author:
-        name, deleted = data.split("|")
-        author = Author(name, deleted)
+        author_id, name, deleted = data.split("|")
+        author = Author(author_id, name, deleted)
         author.deleted = deleted.lower() == "true"
 
         return author
