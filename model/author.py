@@ -21,5 +21,13 @@ class Author:
     def name(self, value: str) -> None:
         self._name = value
 
+    @property
+    def deleted(self) -> bool:
+        return self._deleted
+
+    @deleted.setter
+    def deleted(self, value: str) -> None:
+        self._deleted = value
+
     def __str__(self):
         return f"ID: {self.author_id} - Name: {self.name}"
