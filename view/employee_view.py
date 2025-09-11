@@ -5,6 +5,7 @@ from controller.auth_controller import AuthController
 from controller.employee_controller import EmployeeController
 from model.cpf import Cpf
 from model.password import Password
+from validators.employee_validator import EmployeeValidator
 from view.view import View
 
 
@@ -96,20 +97,19 @@ class EmployeeView(View):
         self.press_enter_to_continue()
 
     def get_employee_data(self) -> Tuple[str, str, str, str, str]:
-        name = input("Name: ")
+        name = self.get_name()
         cpf = self.get_cpf_data()
-        role = input("Role: ")
+        role = self.get_role()
         username, password = self.get_auth_data()
         return name, cpf, role, username, password
 
     @staticmethod
-    def get_auth_data() -> Tuple[str, str]:
-        username = input("Username: ")
+    def get_name() -> str:
         while True:
-            password = getpass("Password: ")
-            if Password.validate(password):
-                return username, password
-            print('Invalid Password. Try again.\n')
+            name = input("Name: ")
+            if EmployeeValidator.validate_name(name):
+                return name
+            print("❌ Invalid name. Must be at least 3 characters.")
 
     @staticmethod
     def get_cpf_data() -> str:
@@ -117,4 +117,21 @@ class EmployeeView(View):
             cpf = input("CPF: ")
             if Cpf.validate(cpf):
                 return cpf
-            print('Invalid CPF. Try again.\n')
+            print('❌ Invalid CPF. Try again.\n')
+
+    @staticmethod
+    def get_role() -> str:
+        while True:
+            role = input("Role: ")
+            if EmployeeValidator.validate_role(role):
+                return role
+            print("❌ Invalid role. Cannot be empty.")
+
+    @staticmethod
+    def get_auth_data() -> Tuple[str, str]:
+        username = input("Username: ")
+        password = getpass("Password: ")
+        while True:
+            if EmployeeValidator.validate_username(username) and Password.validate(password):
+                return username, password
+            print('❌ Invalid username or password. Username >= 4, Password >= 6 characters.\n')
