@@ -4,6 +4,8 @@ from typing import Tuple
 from controller.customer_controller import CustomerController
 from model.category import Category
 from model.cpf import Cpf
+from model.password import Password
+from validators.customer_validator import CustomerValidator
 from view.view import View
 
 
@@ -92,12 +94,36 @@ class CustomerView(View):
         self.clear_screen()
 
     def get_customer_data(self) -> Tuple[str, str, str, str, str]:
-        name = input("Name: ")
+        name = self.get_name()
         cpf = self.get_cpf_data()
-        contact = input("Contact: ")
+        contact = self.get_contact()
         category = self.get_category_customer()
-        password = getpass('Password: ')
+        password = self.get_password()
         return name, cpf, contact, category, password
+
+    @staticmethod
+    def get_name() -> str:
+        while True:
+            name = input("Name: ")
+            if CustomerValidator.validate_name(name):
+                return name
+            print("❌ Invalid name. Must be at least 15 characters.")
+
+    @staticmethod
+    def get_cpf_data() -> str:
+        while True:
+            cpf = input("CPF: ")
+            if Cpf.validate(cpf):
+                return cpf
+            print('❌ Invalid CPF. Try again.\n')
+
+    @staticmethod
+    def get_contact() -> str:
+        while True:
+            contact = input("Contact: ")
+            if CustomerValidator.validate_contact(contact):
+                return contact
+            print("❌ Invalid name. Must be a simple email format.")
 
     @staticmethod
     def get_category_customer() -> str:
@@ -111,9 +137,9 @@ class CustomerView(View):
                 return options[int(choice)-1][0]
 
     @staticmethod
-    def get_cpf_data() -> str:
+    def get_password() -> str:
+        password = getpass("Password: ")
         while True:
-            cpf = input("CPF: ")
-            if Cpf.validate(cpf):
-                return cpf
-            print('Invalid CPF. Try again.\n')
+            if Password.validate(password):
+                return password
+            print('❌ Invalid password. Password >= 6 characters.\n')
