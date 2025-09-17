@@ -16,6 +16,7 @@ class EmployeeController(BaseController[Employee]):
 
     dao_class = EmployeeDao
     logger = employee_logger
+    key_field = "cpf"
 
     AlreadyExistsError = EmployeeAlreadyExistsError
     DeletedError: EmployeeDeletedError

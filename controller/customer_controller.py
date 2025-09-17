@@ -17,6 +17,7 @@ class CustomerController(BaseController[Customer]):
 
     dao_class = CustomerDao
     logger = customer_logger
+    key_field = "cpf"
 
     AlreadyExistsError = CustomerAlreadyExistsError
     DeletedError: CustomerDeletedError
