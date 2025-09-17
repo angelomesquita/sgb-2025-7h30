@@ -11,7 +11,7 @@ from model.exceptions import (
 )
 
 
-class CustomerController(BaseController[Author]):
+class AuthorController(BaseController[Author]):
 
     dao_class = AuthorDao
     logger = author_logger
