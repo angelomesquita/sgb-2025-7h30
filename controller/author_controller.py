@@ -15,6 +15,7 @@ class CustomerController(BaseController[Author]):
 
     dao_class = AuthorDao
     logger = author_logger
+    key_field = "author_id"
 
     AlreadyExistsError = AuthorAlreadyExistsError
     DeletedError: AuthorDeletedError
@@ -22,11 +23,11 @@ class CustomerController(BaseController[Author]):
     NotFoundError: AuthorNotFoundError
     LoadError: AuthorLoadError
 
-    def register(self, name: str) -> None:
-        super().register(name=name)
+    def register(self, author_id: int, name: str) -> None:
+        super().register(author_id, name=name)
 
-    def create_instance(self, name: str, deleted: bool = False) -> Author:
-        return Author(name, deleted)
+    def create_instance(self, author_id: int, name: str, deleted: bool = False) -> Author:
+        return Author(author_id, name, deleted)
 
-    def update(self, name: str) -> None:
-        super().update(name=name)
+    def update(self, author_id: int, name: str) -> None:
+        super().update(author_id, name=name)
