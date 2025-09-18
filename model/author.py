@@ -1,16 +1,16 @@
 class Author:
 
-    def __init__(self, author_id: int, name: str, deleted: bool = False):
+    def __init__(self, author_id: str, name: str, deleted: bool = False):
         self._author_id = author_id
         self._name = name
         self._deleted = deleted
 
     @property
-    def author_id(self) -> int:
+    def author_id(self) -> str:
         return self._author_id
 
     @author_id.setter
-    def author_id(self, value: int) -> None:
+    def author_id(self, value: str) -> None:
         self._author_id = value
 
     @property
