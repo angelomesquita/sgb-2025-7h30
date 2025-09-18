@@ -132,3 +132,38 @@ class AuthorNotFoundError(AuthorError):
 class AuthorLoadError(AuthorError, LoadError):
     """Raised when there is an error loading author data from storage."""
     pass
+
+
+# --------------
+# Publisher-related exceptions
+# --------------
+
+
+class PublisherError(AppError):
+    """Base class for Publisher-related errors."""
+    pass
+
+
+class PublisherAlreadyExistsError(PublisherError):
+    """Raised when trying to register a publisher."""
+    pass
+
+
+class PublisherDeletedError(PublisherError):
+    """Raised when trying to register/update a deleted publisher"""
+    pass
+
+
+class PublisherRestoreError(PublisherError):
+    """Raised when trying to restore an active/new publisher"""
+    pass
+
+
+class PublisherNotFoundError(PublisherError):
+    """Raised when publisher cannot be found."""
+    pass
+
+
+class PublisherLoadError(PublisherError, LoadError):
+    """Raised when there is an error loading publisher data from storage."""
+    pass
