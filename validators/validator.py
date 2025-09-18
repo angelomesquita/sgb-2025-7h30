@@ -9,5 +9,9 @@ class Validator:
         return len(value.strip()) >= length
 
     @staticmethod
+    def length(value: str, length: int) -> bool:
+        return len(value.strip()) == length
+
+    @staticmethod
     def is_numeric(value: str) -> bool:
         return value.isdigit()
