@@ -2,7 +2,7 @@ from model.base_dao import BaseDao
 from model.publisher import Publisher
 
 
-class AuthorDao(BaseDao[Publisher]):
+class PublisherDao(BaseDao[Publisher]):
 
     _FILE_PATH = 'publishers.txt'
 
