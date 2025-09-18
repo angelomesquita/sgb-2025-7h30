@@ -90,17 +90,9 @@ class AuthorView(View):
         self.clear_screen()
 
     def get_author_data(self) -> Tuple[str, str]:
-        name = self.get_name()
         author_id = self.get_author_id_data()
-        return name, author_id
-
-    @staticmethod
-    def get_name() -> str:
-        while True:
-            name = input("Name: ")
-            if AuthorValidator.validate_name(name):
-                return name
-            print("❌ Invalid name. Must be at least 3 characters.")
+        name = self.get_name()
+        return author_id, name
 
     @staticmethod
     def get_author_id_data() -> str:
@@ -109,3 +101,11 @@ class AuthorView(View):
             if AuthorValidator.validate_author_id(author_id):
                 return author_id
             print('❌ Invalid ID. Please enter an integer.')
+
+    @staticmethod
+    def get_name() -> str:
+        while True:
+            name = input("Name: ")
+            if AuthorValidator.validate_name(name):
+                return name
+            print("❌ Invalid name. Must be at least 3 characters.")

@@ -40,6 +40,7 @@ def invalid_option() -> True:
 menu_actions = {
     '1': option_1,
     '2': option_2,
+    '3': option_3,
     '0': option_0
 }
 

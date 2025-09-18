@@ -14,7 +14,7 @@ from model.exceptions import (
 class AuthorController(BaseController[Author]):
 
     dao_class = AuthorDao
-    logger = author_loggers
+    logger = author_logger
 
     AlreadyExistsError = AuthorAlreadyExistsError
     DeletedError: AuthorDeletedError
