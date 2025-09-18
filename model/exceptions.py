@@ -167,3 +167,38 @@ class PublisherNotFoundError(PublisherError):
 class PublisherLoadError(PublisherError, LoadError):
     """Raised when there is an error loading publisher data from storage."""
     pass
+
+
+# --------------
+# Book-related exceptions
+# --------------
+
+
+class BookError(AppError):
+    """Base class for Book-related errors."""
+    pass
+
+
+class BookAlreadyExistsError(BookError):
+    """Raised when trying to register a book."""
+    pass
+
+
+class BookDeletedError(BookError):
+    """Raised when trying to register/update a deleted book"""
+    pass
+
+
+class BookRestoreError(BookError):
+    """Raised when trying to restore an active/new book"""
+    pass
+
+
+class BookNotFoundError(BookError):
+    """Raised when book cannot be found."""
+    pass
+
+
+class BookLoadError(BookError, LoadError):
+    """Raised when there is an error loading book data from storage."""
+    pass
