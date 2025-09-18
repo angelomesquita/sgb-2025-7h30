@@ -1,6 +1,7 @@
 from view.author_view import AuthorView
 from view.employee_view import EmployeeView
 from view.customer_view import CustomerView
+from view.publisher_view import PublisherView
 from view.view import View
 
 
@@ -26,6 +27,12 @@ def option_3() -> None:
     View.clear_screen()
 
 
+def option_4() -> None:
+    publisher_view = PublisherView()
+    publisher_view.show_menu()
+    View.clear_screen()
+
+
 def option_0() -> False:
     print('Exiting the system.')
     return False
@@ -41,6 +48,7 @@ menu_actions = {
     '1': option_1,
     '2': option_2,
     '3': option_3,
+    '4': option_4,
     '0': option_0
 }
 
@@ -53,6 +61,7 @@ def show_app_menu() -> None:
         print('1. Author Module')
         print('2. Employee Module')
         print('3. Customer Module')
+        print('4. Publisher Module')
         print('0. Exit')
 
         option = input('Select an option: ')
