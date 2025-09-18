@@ -19,9 +19,9 @@ class AuthorView(View):
             print('\n=== Author Module ===')
             print('1. Register Author')
             print('2. List Authors')
-            print('3. Update Authors')
-            print('4. Delete Authors')
-            print('5. Restore Authors')
+            print('3. Update Author')
+            print('4. Delete Author')
+            print('5. Restore Author')
             print('0. Back to main menu')
 
             option = input('Select an option: ')
@@ -100,14 +100,12 @@ class AuthorView(View):
             name = input("Name: ")
             if AuthorValidator.validate_name(name):
                 return name
-            print("❌ Invalid name. Must be at least 15 characters.")
+            print("❌ Invalid name. Must be at least 3 characters.")
 
     @staticmethod
     def get_author_id_data() -> str:
         while True:
             author_id = input("Author ID: ")
-            try:
-                int(author_id)
+            if AuthorValidator.validate_author_id(author_id):
                 return author_id
-            except ValueError:
-                print('❌ Invalid ID. Please enter an integer.\n')
+            print('❌ Invalid ID. Please enter an integer.')
