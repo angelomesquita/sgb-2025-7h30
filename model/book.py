@@ -52,5 +52,13 @@ class Book:
     def year(self, value: int) -> None:
         self._year = value
 
+    @property
+    def deleted(self) -> bool:
+        return self._deleted
+
+    @deleted.setter
+    def deleted(self, value: str) -> None:
+        self._deleted = value
+
     def __str__(self):
         return f"ISBN: {self.isbn}, Title: {self.title}, Author: {self.author.name}, Publisher: {self.publisher.legal_name}, Year: {self.year}"
