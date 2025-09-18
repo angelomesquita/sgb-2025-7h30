@@ -1,5 +1,7 @@
+from view.author_view import AuthorView
 from view.employee_view import EmployeeView
 from view.customer_view import CustomerView
+from view.view import View
 
 
 def main():
@@ -7,15 +9,21 @@ def main():
 
 
 def option_1() -> None:
-    employee_view = EmployeeView()
-    employee_view.show_menu()
-    EmployeeView.clear_screen()
+    author_view = AuthorView()
+    author_view.show_menu()
+    View.clear_screen()
 
 
 def option_2() -> None:
+    employee_view = EmployeeView()
+    employee_view.show_menu()
+    View.clear_screen()
+
+
+def option_3() -> None:
     customer_view = CustomerView()
     customer_view.show_menu()
-    CustomerView.clear_screen()
+    View.clear_screen()
 
 
 def option_0() -> False:
@@ -25,7 +33,7 @@ def option_0() -> False:
 
 def invalid_option() -> True:
     print('Invalid option.')
-    EmployeeView.press_enter_to_continue()
+    View.press_enter_to_continue()
     return True
 
 
@@ -41,8 +49,9 @@ def show_app_menu() -> None:
     while running:
         EmployeeView.clear_screen()
         print('\n=== Library Management System ===')
-        print('1. Employee Module')
-        print('2. Customer Module')
+        print('1. Author Module')
+        print('2. Employee Module')
+        print('3. Customer Module')
         print('0. Exit')
 
         option = input('Select an option: ')
