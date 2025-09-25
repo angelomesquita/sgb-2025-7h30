@@ -75,6 +75,8 @@ class BaseController(ABC, Generic[T]):
         if not active_items:
             print("No active entries found")
             return
+        if isinstance(self.key_field, int):
+            active_items.sort(key=lambda x: int(getattr(x, self.key_field)))
         for item in active_items:
             print(item)
             
