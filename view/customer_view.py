@@ -38,13 +38,8 @@ class CustomerView(View):
                 '5': self.restore,
                 '0': lambda: 'exit'
             }
-            action = menu_actions.get(option)
-            if action:
-                if action() == 'exit':
-                    break
-            else:
-                print(self.__INVALID_OPTION)
-                self.press_enter_to_continue()
+            if not self.run_action(menu_actions, option):
+                break
 
     def register(self) -> None:
         print("\n=== Register Customer ===")

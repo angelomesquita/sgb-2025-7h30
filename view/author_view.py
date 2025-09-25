@@ -7,7 +7,6 @@ from view.view import View
 
 class AuthorView(View):
     __NOT_FOUND = 'Author not found.\n'
-    __INVALID_OPTION = 'Invalid option\n'
 
     def __init__(self):
         self.controller = AuthorController()
@@ -34,13 +33,8 @@ class AuthorView(View):
                 '5': self.restore,
                 '0': lambda: 'exit'
             }
-            action = menu_actions.get(option)
-            if action:
-                if action() == 'exit':
-                    break
-            else:
-                print(self.__INVALID_OPTION)
-                self.press_enter_to_continue()
+            if not self.run_action(menu_actions, option):
+                break
 
     def register(self) -> None:
         print("\n=== Register Author ===")
