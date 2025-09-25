@@ -2,6 +2,7 @@ from typing import Tuple
 
 from controller.author_controller import AuthorController
 from validators.author_validator import AuthorValidator
+from services.author_service import AuthorService
 from view.view import View
 
 
@@ -100,6 +101,10 @@ class AuthorView(View):
     def get_name() -> str:
         while True:
             name = input("Name: ")
-            if AuthorValidator.validate_name(name):
-                return name
-            print("❌ Invalid name. Must be at least 3 characters.")
+            if not AuthorValidator.validate_name(name):
+                print("❌ Invalid name. Must be at least 3 characters.")
+                continue
+            if not AuthorValidator.validate_unique_name(name, AuthorService.get_all_authors()):
+                print(f"❌ Author '{name}' already exists.")
+                continue
+            return name
