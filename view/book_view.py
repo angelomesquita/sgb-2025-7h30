@@ -86,13 +86,14 @@ class BookView(View):
         self.press_enter_to_continue()
         self.clear_screen()
 
-    def get_book_data(self) -> Tuple[str, str, str, str, str]:
+    def get_book_data(self) -> Tuple[str, str, str, str, str, str]:
         isbn = self.get_isbn()
         title = self.get_title()
         author_id = self.get_author_id()
         publisher_id = self.get_publisher_id()
         year = self.get_year()
-        return isbn, title, author_id, publisher_id, year
+        quantity = self.get_quantity()
+        return isbn, title, author_id, publisher_id, year, quantity
 
     @staticmethod
     def get_isbn() -> str:
@@ -139,3 +140,11 @@ class BookView(View):
             if BookValidator.validate_year(int(year)):
                 return year
             print("❌ Invalid year. Must be a number less than or equal to the current year.")
+
+    @staticmethod
+    def get_quantity() -> str:
+        while True:
+            quantity = input("Quantity: ")
+            if BookValidator.validate_quantity(int(quantity)):
+                return quantity
+            print("❌ Invalid quantity. Must be greater than zero.")
