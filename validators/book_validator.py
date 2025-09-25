@@ -16,3 +16,7 @@ class BookValidator:
     def validate_year(year: int) -> bool:
         current_year = datetime.now().year
         return 0 < year <= current_year
+
+    @staticmethod
+    def validate_quantity(quantity: int) -> bool:
+        return quantity > 0 and Validator.is_numeric(str(quantity)) and isinstance(quantity, int)
