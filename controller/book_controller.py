@@ -27,15 +27,15 @@ class BookController(BaseController[Book]):
     def __init__(self):
         super().__init__(model_class=Book, key_field="isbn")
 
-    def register(self, isbn: str, title: str, author_id: str, publisher_id: str, year: int) -> None:
-        super().register(isbn, title=title, author_id=author_id, publisher_id=publisher_id, year=year)
+    def register(self, isbn: str, title: str, author_id: str, publisher_id: str, year: int, quantity: int) -> None:
+        super().register(isbn, title=title, author_id=author_id, publisher_id=publisher_id, year=year, quantity=quantity)
 
-    def create_instance(self, isbn: str, title: str, author_id: str, publisher_id: str, year: int, deleted: bool = False) -> Book:
+    def create_instance(self, isbn: str, title: str, author_id: str, publisher_id: str, year: int, quantity: int, deleted: bool = False) -> Book:
         author = AuthorService.get_author_by_id(author_id)
         publisher = PublisherService.get_publisher_by_id(publisher_id)
-        return Book(isbn, title, author, publisher, year, deleted)
+        return Book(isbn, title, author, publisher, year, quantity, deleted)
 
-    def update(self, isbn: str, title: str, author_id: str, publisher_id: str, year: int) -> None:
+    def update(self, isbn: str, title: str, author_id: str, publisher_id: str, year: int, quantity: int) -> None:
         author = AuthorService.get_author_by_id(author_id)
         publisher = PublisherService.get_publisher_by_id(publisher_id)
-        super().update(isbn, title=title, author=author, publisher=publisher, year=year)
+        super().update(isbn, title=title, author=author, publisher=publisher, year=year, quantity=quantity)
