@@ -36,4 +36,6 @@ class BookController(BaseController[Book]):
         return Book(isbn, title, author, publisher, year, deleted)
 
     def update(self, isbn: str, title: str, author_id: str, publisher_id: str, year: int) -> None:
-        super().update(isbn, title=title, author_id=author_id, publisher_id=publisher_id, year=year)
+        author = AuthorService.get_author_by_id(author_id)
+        publisher = PublisherService.get_publisher_by_id(publisher_id)
+        super().update(isbn, title=title, author=author, publisher=publisher, year=year)
