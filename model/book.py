@@ -4,12 +4,13 @@ from model.publisher import Publisher
 
 class Book:
 
-    def __init__(self, isbn: str, title: str, author: Author, publisher: Publisher, year: int, deleted: bool = False):
+    def __init__(self, isbn: str, title: str, author: Author, publisher: Publisher, year: int, quantity: int, deleted: bool = False):
         self._isbn = isbn
         self._title = title
         self._author = author
         self._publisher = publisher
         self._year = year
+        self._quantity = quantity
         self._deleted = deleted
 
     @property
@@ -53,6 +54,14 @@ class Book:
         self._year = value
 
     @property
+    def quantity(self) -> int:
+        return self._quantity
+
+    @quantity.setter
+    def quantity(self, value: int) -> None:
+        self._quantity = value
+
+    @property
     def deleted(self) -> bool:
         return self._deleted
 
@@ -61,4 +70,4 @@ class Book:
         self._deleted = value
 
     def __str__(self):
-        return f"ISBN: {self.isbn}, Title: {self.title}, Author: {self.author.name}, Publisher: {self.publisher.legal_name}, Year: {self.year}"
+        return f"ISBN: {self.isbn}, Title: {self.title}, Author: {self.author.name}, Publisher: {self.publisher.legal_name}, Year: {self.year}, Quantity: {self.quantity}"
