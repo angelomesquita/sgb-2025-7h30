@@ -20,3 +20,11 @@ class BookValidator:
     @staticmethod
     def validate_quantity(quantity: int) -> bool:
         return quantity > 0 and Validator.is_numeric(str(quantity)) and isinstance(quantity, int)
+
+    @staticmethod
+    def validate_amount(amount: str) -> bool:
+        try:
+            int(amount)
+            return True
+        except ValueError:
+            return False
