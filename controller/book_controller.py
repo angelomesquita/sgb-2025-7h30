@@ -40,11 +40,11 @@ class BookController(BaseController[Book]):
         publisher = PublisherService.get_publisher_by_id(publisher_id)
         super().update(isbn, title=title, author=author, publisher=publisher, year=year, quantity=quantity)
 
-    def adjust_quantity(self, isbn: str, amount: int) -> None:
+    def adjust_quantity(self, isbn: str, amount: str) -> None:
         book = self.find(isbn)
         if not book:
             print(f"Book with ISBN {isbn} not found.")
-        book.quantity = book.quantity + amount
+        book.quantity = int(book.quantity) + int(amount)
         self.dao_class.save_all(self.items)
         message = f'✅ {book.__class__.__name__} quantity updated. New quantity: {book.quantity}'
         self.logger.info(f"{message} [{book}]")
