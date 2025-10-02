@@ -25,6 +25,7 @@ class BookView(View):
             print('4. Delete Book')
             print('5. Restore Book')
             print('6. Adjust Quantity')
+            print('7. Search Books')
             print('0. Back to main menu')
 
             option = input('Select an option: ')
@@ -36,6 +37,7 @@ class BookView(View):
                 '4': self.delete,
                 '5': self.restore,
                 '6': self.adjust_quantity,
+                '7': self.search_books,
                 '0': lambda: 'exit'
             }
             if not self.run_action(menu_actions, option):
@@ -100,6 +102,15 @@ class BookView(View):
         self.press_enter_to_continue()
         self.clear_screen()
 
+    def search_books(self) -> None:
+        print('\n=== Search Books ===')
+        title = self.get_search_title()
+        author = self.get_search_author()
+        available = self.get_search_available()
+        self.controller.search_books(title, author, available)
+        self.press_enter_to_continue()
+        self.clear_screen()
+
     def get_book_data(self) -> Tuple[str, str, str, str, str, str]:
         isbn = self.get_isbn()
         title = self.get_title()
@@ -120,7 +131,7 @@ class BookView(View):
     @staticmethod
     def get_title() -> str:
         while True:
-            title = input("Title: ")
+            title = input("Title: ").strip()
             if BookValidator.validate_title(title):
                 return title
             print("❌ Invalid title. Must be at least 5 characters.")
@@ -134,7 +145,7 @@ class BookView(View):
         while True:
             choice = input('Enter the author id: ')
             if choice.isdigit() and 1 <= int(choice) <= len(options):
-                return options[int(choice)-1][0]
+                return options[int(choice) - 1][0]
 
     @staticmethod
     def get_publisher_id() -> str:
@@ -145,7 +156,7 @@ class BookView(View):
         while True:
             choice = input('Enter the publisher id: ')
             if choice.isdigit() and 1 <= int(choice) <= len(options):
-                return options[int(choice)-1][0]
+                return options[int(choice) - 1][0]
 
     @staticmethod
     def get_year() -> str:
@@ -170,3 +181,23 @@ class BookView(View):
             if BookValidator.validate_amount(amount):
                 return amount
             print('❌ Invalid amount. Must be a integer number')
+
+    @staticmethod
+    def get_search_title() -> str:
+        return input("Enter title (or leave blank): ").strip()
+
+    @staticmethod
+    def get_search_author() -> str:
+        return input("Enter author name (or leave blank): ").strip()
+
+    @staticmethod
+    def get_search_available() -> bool:
+        while True:
+            available_input = input("Available only? (y/n/blank): ").strip().lower()
+            if available_input == 'y':
+                available = True
+            elif available_input == 'n':
+                available = False
+            else:
+                available = None
+            return available
