@@ -1,7 +1,7 @@
 from model.base_dao import BaseDao
 from model.book import Book
-from services.author_service import AuthorService
-from services.publisher_service import PublisherService
+from repository.author_repository import AuthorRepository
+from repository.publisher_repository import PublisherRepository
 
 
 class BookDao(BaseDao[Book]):
@@ -16,8 +16,8 @@ class BookDao(BaseDao[Book]):
     def _deserialize(data: str) -> Book:
         isbn, title, author_id, publisher_id, year, quantity, deleted = data.split("|")
 
-        author = AuthorService.get_author_by_id(author_id)
-        publisher = PublisherService.get_publisher_by_id(publisher_id)
+        author = AuthorRepository.get_author_by_id(author_id)
+        publisher = PublisherRepository.get_publisher_by_id(publisher_id)
 
         book = Book(isbn, title, author, publisher, year, quantity, deleted)
         book.deleted = deleted.lower() == "true"

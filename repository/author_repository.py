@@ -4,7 +4,7 @@ from model.author_dao import AuthorDao
 from model.exceptions import AuthorNotFoundError
 
 
-class AuthorService:
+class AuthorRepository:
 
     @staticmethod
     def get_all_authors() -> List[Author]:
@@ -13,7 +13,7 @@ class AuthorService:
 
     @staticmethod
     def get_author_by_id(author_id: str) -> Author:
-        authors = AuthorService.get_all_authors()
+        authors = AuthorRepository.get_all_authors()
         author = next((a for a in authors if str(a.author_id) == author_id), None)
         if author is None:
             raise AuthorNotFoundError(f"Author with id {author_id} not found.")
@@ -21,5 +21,5 @@ class AuthorService:
 
     @staticmethod
     def options() -> List[Tuple[str, str]]:
-        authors = AuthorService.get_all_authors()
+        authors = AuthorRepository.get_all_authors()
         return [(str(a.author_id), a.name) for a in authors if not a.deleted]
