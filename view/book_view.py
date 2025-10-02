@@ -24,6 +24,7 @@ class BookView(View):
             print('3. Update Book')
             print('4. Delete Book')
             print('5. Restore Book')
+            print('6. Adjust Quantity')
             print('0. Back to main menu')
 
             option = input('Select an option: ')
@@ -34,6 +35,7 @@ class BookView(View):
                 '3': self.update,
                 '4': self.delete,
                 '5': self.restore,
+                '6': self.adjust_quantity,
                 '0': lambda: 'exit'
             }
             if not self.run_action(menu_actions, option):
@@ -81,6 +83,18 @@ class BookView(View):
         book = self.controller.find_deleted(isbn)
         if book:
             self.controller.restore(isbn)
+        else:
+            print(self.__NOT_FOUND)
+        self.press_enter_to_continue()
+        self.clear_screen()
+
+    def adjust_quantity(self) -> None:
+        print('\n=== Adjust Quantity ===')
+        isbn = self.get_isbn()
+        amount = self.get_amount()
+        book = self.controller.find(isbn)
+        if book:
+            self.controller.adjust_quantity(isbn, amount)
         else:
             print(self.__NOT_FOUND)
         self.press_enter_to_continue()
@@ -148,3 +162,11 @@ class BookView(View):
             if BookValidator.validate_quantity(int(quantity)):
                 return quantity
             print("❌ Invalid quantity. Must be greater than zero.")
+
+    @staticmethod
+    def get_amount() -> str:
+        while True:
+            amount = input('Amount: ')
+            if BookValidator.validate_amount(amount):
+                return amount
+            print('❌ Invalid amount. Must be a integer number')
