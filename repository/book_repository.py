@@ -26,8 +26,8 @@ class BookRepository:
 
         if available is not None:
             if available:
-                results = [b for b in results if b.quantity > 0]
+                results = [b for b in results if int(b.quantity) > 0]
             else:
-                results = [b for b in results if b.quantity <= 0]
+                results = [b for b in results if int(b.quantity) <= 0]
 
         return results
