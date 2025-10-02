@@ -54,11 +54,11 @@ class BookController(BaseController[Book]):
     def search_books(self, title: str, author: str, available: bool) -> None:
         results = BookRepository.search(title=title, author=author, available=available)
         if not results:
-            message = f'No books found with the given filters: {title}, {author}, {available}'
+            message = f'\nNo books found with the given filters: {title}, {author}, {available}'
             self.logger.info(message)
             print(message)
             return
-        print(f'Found {len(results)} book(s):')
+        print(f'\nFound {len(results)} book(s):')
         for book in results:
             print(book)
         print()
