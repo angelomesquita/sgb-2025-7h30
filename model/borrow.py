@@ -8,7 +8,7 @@ class Borrow:
 
     def __init__(
         self,
-        borrow_id: int,
+        borrow_id: str,
         book: Book,
         employee: Employee,
         customer: Customer,
@@ -27,7 +27,7 @@ class Borrow:
         self._returned = returned
 
     @property
-    def borrow_id(self) -> int:
+    def borrow_id(self) -> str:
         return self._borrow_id
 
     @property
