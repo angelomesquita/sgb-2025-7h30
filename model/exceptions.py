@@ -202,3 +202,23 @@ class BookNotFoundError(BookError):
 class BookLoadError(BookError, LoadError):
     """Raised when there is an error loading book data from storage."""
     pass
+
+
+# --------------
+# Borrow-related exceptions
+# --------------
+
+
+class BorrowError(AppError):
+    """Base class for Borrow-related errors."""
+    pass
+
+
+class BookNotAvailableError(BorrowError):
+    """Raised when book is not available for borrow."""
+    pass
+
+
+class InvalidBorrowDateError(BorrowError):
+    """Raise when invalid borrow dates"""
+    pass
