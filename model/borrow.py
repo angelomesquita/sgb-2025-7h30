@@ -1,6 +1,7 @@
 from datetime import date
 from model.book import Book
 from model.customer import Customer
+from model.employee import Employee
 
 
 class Borrow:
@@ -9,6 +10,7 @@ class Borrow:
         self,
         borrow_id: int,
         book: Book,
+        employee: Employee,
         customer: Customer,
         start_date: date,
         due_date: date,
@@ -16,6 +18,7 @@ class Borrow:
     ) -> None:
         self._borrow_id = borrow_id
         self._book = book
+        self._employee = employee
         self._customer = customer
         self._start_date = start_date
         self._due_date = due_date
@@ -28,6 +31,10 @@ class Borrow:
     @property
     def book(self) -> Book:
         return self._book
+
+    @property
+    def employee(self) -> Employee:
+        return self._employee
 
     @property
     def customer(self) -> Customer:
@@ -50,6 +57,6 @@ class Borrow:
         self._returned = value
 
     def __str__(self):
-        return f"Borrow: {self.borrow_id} | Book: {self.book.title} | Customer: {self.customer.name} | Start: {self.start_date} | Due: {self.due_date} | Returned: {self.returned}"
+        return f"Borrow: {self.borrow_id} | Book: {self.book.title} | Employee: {self.employee.name} |Customer: {self.customer.name} | Start: {self.start_date} | Due: {self.due_date} | Returned: {self.returned}"
 
 
