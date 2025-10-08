@@ -222,3 +222,8 @@ class BookNotAvailableError(BorrowError):
 class InvalidBorrowDateError(BorrowError):
     """Raise when invalid borrow dates"""
     pass
+
+
+class BorrowLoadError(BorrowError, LoadError):
+    """Raised when there is an error loading borrow data from storage."""
+    pass
