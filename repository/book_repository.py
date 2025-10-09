@@ -54,4 +54,15 @@ class BookRepository:
                 break
         BookDao.save_all(books)
 
+    @staticmethod
+    def increase_quantity(book_isbn: str, amount: int = 1) -> None:
+        books = BookRepository.get_all_books()
+        for book in books:
+            if book.isbn == book_isbn:
+                quantity = int(book.quantity)
+                quantity += amount
+                book.quantity = quantity
+                break
+        BookDao.save_all(books)
+
 
