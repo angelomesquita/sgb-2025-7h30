@@ -18,7 +18,8 @@ Desenvolver um sistema de gerenciamento para biblioteca escolar utilizando os co
 - [x] **RF002 - Cadastro de Usuários:** Possibilitar o cadastro de usuários da biblioteca com nome, CPF, contato e categoria (exemplo: estudante, professor, visitante).
 - [x] **RF003 - Cadastro de Livros:** Registrar os livros no sistema com informações como título, autor, editora, ano de publicação, ISBN e quantidade disponível.
 - [x] **RF004 - Consulta e Pesquisa de Livros:** Permitir busca por livros com filtros como título, autor e disponibilidade.
-- [ ] **RF005 - Empréstimo de Livros:** Registrar o empréstimo de um livro, vinculando-o a um usuário e a uma data de retirada e devolução prevista.
+- [x] **RF005 - Empréstimo de Livros:** Registrar o empréstimo de um livro, vinculando-o a um usuário e a uma data de retirada e devolução prevista.
+- [x] **RF006 - Devolução de Livros:** Registrar a devolução de um livro, atualizando seu status no sistema e calculando possíveis multas.
 
 ## 📁 Estrutura do projeto
 ```bash
