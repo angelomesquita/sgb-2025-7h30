@@ -1,7 +1,7 @@
 from typing import List, Optional
 from model.book import Book
 from model.book_dao import BookDao
-from model.exceptions import BookNotFoundError
+from model.exceptions import BookNotAvailableError, BookNotFoundError
 
 
 class BookRepository:
@@ -40,3 +40,18 @@ class BookRepository:
                 results = [b for b in results if int(b.quantity) <= 0]
 
         return results
+
+    @staticmethod
+    def decrease_quantity(book_isbn: str, amount: int = 1) -> None:
+        books = BookRepository.get_all_books()
+        for book in books:
+            quantity = int(book.quantity)
+            if book.isbn == book_isbn:
+                if quantity - amount < 0:
+                    raise BookNotAvailableError(f"Book '{book.title}' is not available.")
+                quantity -= amount
+                book.quantity = quantity
+                break
+        BookDao.save_all(books)
+
+
