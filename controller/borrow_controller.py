@@ -12,6 +12,7 @@ from model.exceptions import (
     BorrowLoadError
 )
 from repository.book_repository import BookRepository
+from repository.borrow_repository import BorrowRepository
 from repository.employee_repository import EmployeeRepository
 from repository.customer_repository import CustomerRepository
 
@@ -78,9 +79,14 @@ class BorrowController(BaseController[Borrow]):
         returned: bool = False
     ) -> None:
 
+        borrow = BorrowRepository.get_borrow_by_id(borrow_id)
         book = BookRepository.get_book_by_isbn(book_isbn)
         employee = EmployeeRepository.get_employee_by_cpf(employee_cpf)
         customer = CustomerRepository.get_customer_by_cpf(customer_cpf)
+
+        if borrow.book.isbn != book.isbn:
+            BookRepository.increase_quantity(borrow.book.isbn)
+            BookRepository.decrease_quantity(book.isbn)
 
         super().update(
             borrow_id,
