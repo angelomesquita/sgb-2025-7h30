@@ -18,14 +18,14 @@ def option_1() -> None:
 
 
 def option_2() -> None:
-    borrow_view = BorrowView()
-    borrow_view.show_menu()
+    book_view = BookView()
+    book_view.show_menu()
     View.clear_screen()
 
 
 def option_3() -> None:
-    book_view = BookView()
-    book_view.show_menu()
+    borrow_view = BorrowView()
+    borrow_view.show_menu()
     View.clear_screen()
 
 
