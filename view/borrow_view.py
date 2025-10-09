@@ -35,7 +35,7 @@ class BorrowView(View):
                 '3': self.update,
                 '4': self.delete,
                 '5': self.restore,
-                '6': self.return_books,
+                '6': self.return_book,
                 '0': lambda: 'exit'
             }
             if not self.run_action(menu_actions, option):
@@ -88,9 +88,14 @@ class BorrowView(View):
         self.press_enter_to_continue()
         self.clear_screen()
 
-    def return_books(self) -> None:
+    def return_book(self) -> None:
         print('\n=== Return Books ===')
-        # TODO: not implemented yet.
+        borrow_id = self.get_borrow_id()
+        borrow = self.controller.find(borrow_id)
+        if borrow:
+            self.controller.return_book(borrow_id)
+        else:
+            print(self.__NOT_FOUND)
         self.press_enter_to_continue()
         self.clear_screen()
 
