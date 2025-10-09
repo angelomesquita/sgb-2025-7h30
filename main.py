@@ -1,5 +1,6 @@
 from view.author_view import AuthorView
 from view.book_view import BookView
+from view.borrow_view import BorrowView
 from view.employee_view import EmployeeView
 from view.customer_view import CustomerView
 from view.publisher_view import PublisherView
@@ -17,24 +18,30 @@ def option_1() -> None:
 
 
 def option_2() -> None:
+    borrow_view = BorrowView()
+    borrow_view.show_menu()
+    View.clear_screen()
+
+
+def option_3() -> None:
     book_view = BookView()
     book_view.show_menu()
     View.clear_screen()
 
 
-def option_3() -> None:
+def option_4() -> None:
     employee_view = EmployeeView()
     employee_view.show_menu()
     View.clear_screen()
 
 
-def option_4() -> None:
+def option_5() -> None:
     customer_view = CustomerView()
     customer_view.show_menu()
     View.clear_screen()
 
 
-def option_5() -> None:
+def option_6() -> None:
     publisher_view = PublisherView()
     publisher_view.show_menu()
     View.clear_screen()
@@ -57,6 +64,7 @@ menu_actions = {
     '3': option_3,
     '4': option_4,
     '5': option_5,
+    '6': option_6,
     '0': option_0
 }
 
@@ -68,9 +76,10 @@ def show_app_menu() -> None:
         print('\n=== Library Management System ===')
         print('1. Author Module')
         print('2. Book Module')
-        print('3. Employee Module')
-        print('4. Customer Module')
-        print('5. Publisher Module')
+        print('3. Borrow Module')
+        print('4. Employee Module')
+        print('5. Customer Module')
+        print('6. Publisher Module')
         print('0. Exit')
 
         option = input('Select an option: ')
