@@ -96,3 +96,18 @@ class BorrowController(BaseController[Borrow]):
             return_date=return_date,
             returned=returned
         )
+
+    def return_book(self, borrow_id: str) -> None:
+        borrow = BorrowRepository.get_borrow_by_id(borrow_id)
+        book = BookRepository.get_book_by_isbn(borrow.book.isbn)
+
+        BookRepository.increase_quantity(book.isbn)
+
+        return_date = date.today()
+        # TODO: verify fine for late (if return_date > borrow.due_date)
+
+        super().update(
+            borrow_id,
+            return_date=return_date,
+            returned=True
+        )
