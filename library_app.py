@@ -3,7 +3,6 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 from typing import Type
 
-from view.author_view import AuthorView
 from view.book_view import BookView
 from view.borrow_view import BorrowView
 from view.employee_view import EmployeeView
@@ -59,7 +58,8 @@ class LibraryApp(tk.Tk):
         ttk.Separator(self, orient="horizontal").pack(fill="x", pady=15)
 
     def open_author_module(self) -> None:
-        self._open_module_window("Author Module", AuthorView)
+        from view.author_module import AuthorModule
+        AuthorModule(self, title="Author Module", geometry="600x400")
 
     def open_book_module(self) -> None:
         self._open_module_window("Book Module", BookView)
