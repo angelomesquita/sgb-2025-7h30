@@ -59,7 +59,7 @@ class LibraryApp(tk.Tk):
 
     def open_author_module(self) -> None:
         from view.author_module import AuthorModule
-        AuthorModule(self, title="Author Module", geometry="600x400")
+        AuthorModule(self)
 
     def open_book_module(self) -> None:
         self._open_module_window("Book Module", BookView)

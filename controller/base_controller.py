@@ -80,14 +80,14 @@ class BaseController(ABC, Generic[T]):
         for item in active_items:
             print(item)
 
-    def list_all(self) -> List[T]:
+    def list_all(self) -> Optional[List[T]]:
         if not self.items:
             print("No entries registered yet.")
-            return []
+            return
         active_items = [item for item in self.items if not getattr(item, 'deleted', False)]
         if not active_items:
-            print("No active entries found")
-            return []
+            print("No active entries found.")
+            return
         if isinstance(self.key_field, int):
             active_items.sort(key=lambda x: int(getattr(x, self.key_field)))
         return active_items
