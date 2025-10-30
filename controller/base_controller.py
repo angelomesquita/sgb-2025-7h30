@@ -79,6 +79,18 @@ class BaseController(ABC, Generic[T]):
             active_items.sort(key=lambda x: int(getattr(x, self.key_field)))
         for item in active_items:
             print(item)
+
+    def list_all(self) -> List[T]:
+        if not self.items:
+            print("No entries registered yet.")
+            return []
+        active_items = [item for item in self.items if not getattr(item, 'deleted', False)]
+        if not active_items:
+            print("No active entries found")
+            return []
+        if isinstance(self.key_field, int):
+            active_items.sort(key=lambda x: int(getattr(x, self.key_field)))
+        return active_items
             
     def find(self, key_value: str) -> Optional[T]:
         for item in self.items:
