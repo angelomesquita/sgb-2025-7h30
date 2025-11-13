@@ -3,44 +3,56 @@ from model.author import Author
 
 
 @pytest.fixture
-def publisher_data():
-    return {
-        'author_id': 'JD1',
-        'name': 'John Doe'
-    }
+def author_default():
+    """
+    Provides a default Author instance for testing.
+
+    Returns:
+        - Author: An Author object with ID 'JD01', name 'John Doe', and deleted=False.
+    """
+    return Author(author_id='JD01', name='John Doe')
 
 
-def test_create_author_default_deleted_false(publisher_data):
-    """Checks if the author is created correctly with deleted=False by default."""
-    author = Author(author_id=publisher_data['author_id'], name=publisher_data['name'])
-    assert author.author_id == publisher_data['author_id']
-    assert author.name == publisher_data['name']
-    assert author.deleted is False
+@pytest.mark.parametrize('deleted, expected', [
+    (False, False),
+    (True, True)
+])
+def test_author_creation_deleted_flag(author_default, deleted, expected):
+    """
+    Checks that the author instance is created with the correct deleted flag.
+
+    Fixture:
+        - author_default: Provides an Author instance with default values.
+
+    Parameters (via parametrize):
+        - deleted (bool): Value passed during Author creation.
+        - expected (bool): Expected value for the deleted attribute.
+    """
+    author = Author(author_id=author_default.author_id, name=author_default.name, deleted=deleted)
+    assert author.author_id == author_default.author_id
+    assert author.name == author_default.name
+    assert author.deleted is expected
 
 
-def test_create_author_with_deleted_true(publisher_data):
-    """Checks if the author can be created with deleted=True."""
-    author = Author(author_id=publisher_data['author_id'], name=publisher_data['name'], deleted=True)
-    assert author.author_id == publisher_data['author_id']
-    assert author.name == publisher_data['name']
-    assert author.deleted is True
+def test_author_setters_update_attributes(author_default):
+    """
+    Verifies that the Author's setters correctly update its attributes.
+
+    Fixture:
+        - author_default: Provides an Author instance with default values.
+    """
+    author_default.author_id = "JD2"
+    author_default.name = author_default.name + ' UPDATED'
+    author_default.deleted = True
+
+    assert author_default.author_id == "JD2"
+    assert author_default.name == author_default.name
+    assert author_default.deleted is True
 
 
-def test_setters_update_values_correctly(publisher_data):
-    """Checks if the setters correctly update the attribute values."""
-    author = Author(author_id=publisher_data['author_id'], name=publisher_data['name'])
-
-    author.author_id = "JD2"
-    author.name = publisher_data['name'] + '2'
-    author.deleted = True
-
-    assert author.author_id == "JD2"
-    assert author.name == publisher_data['name'] + '2'
-    assert author.deleted is True
-
-
-def test_str_representation(publisher_data):
-    """Checks if the __str__ method return the correctly formatted string."""
-    author = Author(author_id=publisher_data['author_id'], name=publisher_data['name'])
-    expected = f"ID: {publisher_data['author_id']} - Name: {publisher_data['name']}"
-    assert str(author) == expected
+def test_author_str_returns_formatted_string(author_default):
+    """
+    Checks that the __str__ method returns the correctly formatted string representation.
+    """
+    expected = f"ID: {author_default.author_id} - Name: {author_default.name}"
+    assert str(author_default) == expected
