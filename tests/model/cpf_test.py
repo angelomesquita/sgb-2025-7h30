@@ -1,54 +1,65 @@
+import pytest
+
 from model.cpf import Cpf
 
 
-def test_clean_removes_non_digits():
-    """Ensure non-digits characters are removed from CPF."""
-    cpf = '111.111.111-11'
-    cleaned = Cpf.clean(cpf=cpf)
-    assert cleaned == '11111111111'
+@pytest.fixture
+def cpf_samples():
+    """
+    Provides samples CPF string for testing different validation case.
+
+    Returns:
+        - dict: Dictionary containing valid and invalid CPF examples.
+    """
+    return {
+        'valid': '415.081.330-26',
+        'invalid_format': '415.081.330-2A',
+        'short': '1111',
+        'long': '11111111111111111',
+        'repeated': '111.111.111-11',
+        'invalid_check': '415.081.330-27'
+    }
 
 
-def test_clean_keeps_only_digits():
-    """Ensure numbers remain unchanged after cleaning."""
-    cpf = '11111111111'
-    cleaned = Cpf.clean(cpf=cpf)
-    assert cleaned == cpf
+@pytest.mark.parametrize('input_cpf, expected', [
+    ('111.111.111-11', '11111111111'),
+    ('11111111111', '11111111111'),
+])
+def test_clean_removes_non_digits(input_cpf, expected):
+    """
+    Ensure that Cpf.clean() removes non-digits characters while keeping digits intact.
+
+    Parameters (via parametrize):
+        - input_cpf (str): CPF string to be cleaned.
+        - expected (bool): Expected cleaned CPF contained only digits.
+    """
+    assert Cpf.clean(cpf=input_cpf) == expected
 
 
-def test_validate_returns_false_for_invalid_format():
-    """Ensure invalid CPF format (for example: with character) return False."""
-    invalid_cpf_format = "415.081.330-2A"
-    assert Cpf.validate(cpf=invalid_cpf_format) is False
+@pytest.mark.parametrize('cpf_key, expected', [
+    ('valid', True),
+    ('invalid_format', False),
+    ('short', False),
+    ('long', False),
+    ('repeated', False),
+    ('invalid_check', False),
+])
+def test_validate_various_cpfs(cpf_samples, cpf_key, expected):
+    """
+    Validates different CPF inputs using Cpf.validate()
 
+    Fixture:
+        - cpf_samples: Provides different CPF cases (valid and invalid).
 
-def test_validate_returns_false_for_wrong_length():
-    """Ensure CPF with incorrect length returns False."""
-    short_cpf = '1111'
-    long_cpf = '11111111111111111'
-    assert not Cpf.validate(cpf=short_cpf)
-    assert Cpf.validate(cpf=long_cpf) is False
-
-
-def test_validate_returns_false_for_repeated_digits():
-    """Ensure CPF with all identical digits returns False."""
-    repeated_digits_cpf = '111.111.111-11'
-    assert Cpf.validate(cpf=repeated_digits_cpf) is False
-
-
-def test_validate_returns_true_for_valid_cpf():
-    """Ensure valid CPF return True."""
-    valid_cpf = "415.081.330-26"
-    assert Cpf.validate(cpf=valid_cpf) is True
-
-
-def test_validate_returns_false_for_invalid_cpf():
-    """Ensure invalid CPF (with wrong check digits) return False."""
-    invalid_cpf = "415.081.330-27"
-    assert Cpf.validate(cpf=invalid_cpf) is False
+    Parameters (via parametrize):
+        - cpf_key (str): Key to select which CPF sample to validate.
+        - expected (bool): Expected validation result.
+    """
+    assert Cpf.validate(cpf=cpf_samples[cpf_key]) is expected
 
 
 def test_calculate_check_digits_first_and_second():
-    """Ensure check digit calculation returns expected digits."""
+    """Ensure that Cpf.__calculate_check_digit() correctly computes both check digits."""
     cpf_digits = "41508133026"
     expected_first_digit = 2
     expected_second_digit = 6
@@ -57,14 +68,19 @@ def test_calculate_check_digits_first_and_second():
     assert (first_digit, second_digit) == (expected_first_digit, expected_second_digit)
 
 
-def test_recursive_weighted_sum_with_empty_string():
-    """Ensure recursive base case returns 0 when digits are empty."""
-    assert Cpf._Cpf__recursive_weighted_sum("", 5) == 0  # type: ignore
+@pytest.mark.parametrize('digits, weight, expected', [
+    ("303", 5, 24),
+    ("", 5, 0)
+])
+def test_recursive_weighted_sum_calculation(digits, weight, expected):
+    """
+    Ensures that the private recursive method correctly calculate the weight sum.
 
+    Parameters (via parametrize):
+        - digits (str): Sequence of numeric digits.
+        - weight (int): Initial weight for calculation.
+        - expected (int): Expected weighed sum result.
+    """
+    result = Cpf._Cpf__recursive_weighted_sum(digits, weight)  # type: ignore
+    assert result == expected
 
-def test_recursive_weighted_sum_calculation():
-    """Ensure recursive sum is calculated correctly."""
-    # digits = 303, weights = 5, 4, 3
-    result = Cpf._Cpf__recursive_weighted_sum("303", 5)  # type: ignore
-    # 3*5 + 0*4 + 3*3 | 15 + 0 + 9 | 24
-    assert result == 24
