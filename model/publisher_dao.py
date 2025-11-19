@@ -1,4 +1,4 @@
-from model.base_dao import BaseDao
+from model.base_dao_file import BaseDao
 from model.publisher import Publisher
 
 

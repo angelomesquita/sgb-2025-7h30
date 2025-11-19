@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 from typing import Generic, List, Optional, Type, TypeVar
 
 from model.auth import Auth
-from model.base_dao import BaseDao
+from model.base_dao_file import BaseDao
 from model.cpf import Cpf
 from model.person import Person
 
