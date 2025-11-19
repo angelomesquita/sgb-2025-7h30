@@ -1,6 +1,6 @@
 from typing import List, Tuple
 from model.author import Author
-from model.author_dao import AuthorDao
+from model.author_dao_file import AuthorDao
 from model.exceptions import AuthorNotFoundError
 
 
