@@ -1,3 +1,7 @@
+from dataclasses import dataclass
+
+
+@dataclass
 class Author:
 
     def __init__(self, author_id: str, name: str, deleted: bool = False):
