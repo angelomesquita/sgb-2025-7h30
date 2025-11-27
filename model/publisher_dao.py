@@ -33,7 +33,7 @@ class PublisherDao(BaseDao[Publisher]):
                     legal_name = excluded.legal_name,
                     city = excluded.city,
                     state = excluded.state,
-                    deleted = excluded.deleted,
+                    deleted = excluded.deleted
                 """,
                 (publisher.publisher_id, publisher.legal_name, publisher.city, publisher.state, publisher.deleted)
             )
@@ -81,6 +81,6 @@ class PublisherDao(BaseDao[Publisher]):
     def delete(cls, publisher_id: str) -> None:
         with cls._get_connection() as connection:
             connection.execute(
-                "UPDATE publishers SET delete = 1 WHERE publisher_id = ?", (publisher_id, )
+                "UPDATE publishers SET deleted = 1 WHERE publisher_id = ?", (publisher_id, )
             )
             connection.commit()
