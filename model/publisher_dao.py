@@ -23,7 +23,7 @@ class PublisherDao(BaseDao[Publisher]):
             connection.commit()
 
     @classmethod
-    def save(cls, publisher_id: Publisher) -> None:
+    def save(cls, publisher: Publisher) -> None:
         with cls._get_connection() as connection:
             connection.execute(
                 """
@@ -34,7 +34,8 @@ class PublisherDao(BaseDao[Publisher]):
                     city = excluded.city,
                     state = excluded.state,
                     deleted = excluded.deleted,
-                """
+                """,
+                (publisher.publisher_id, publisher.legal_name, publisher.city, publisher.state, publisher.deleted)
             )
             connection.commit()
 
