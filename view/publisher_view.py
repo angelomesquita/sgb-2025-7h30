@@ -39,8 +39,8 @@ class PublisherView(View):
 
     def register(self) -> None:
         print("\n=== Register Publisher ===")
-        data = self.get_publisher_data()
-        self.controller.register(*data)
+        publisher_id, legal_name, city, state = self.get_publisher_data()
+        self.controller.register(publisher_id=publisher_id, legal_name=legal_name, city=city, state=state)
         self.press_enter_to_continue()
         self.clear_screen()
 
@@ -55,8 +55,8 @@ class PublisherView(View):
         publisher_id = self.get_publisher_id_data()
         publisher = self.controller.find(publisher_id)
         if publisher:
-            data = self.get_publisher_data()
-            self.controller.update(*data)
+            publisher_id, legal_name, city, state = self.get_publisher_data()
+            self.controller.update(publisher_id=publisher_id, legal_name=legal_name, city=city, state=state)
         else:
             print(self.__NOT_FOUND)
         self.press_enter_to_continue()
@@ -76,10 +76,8 @@ class PublisherView(View):
     def restore(self) -> None:
         print('\n=== Restore Publisher ===')
         publisher_id = self.get_publisher_id_data()
-        publisher = self.controller.find_deleted(publisher_id)
-        if publisher:
-            self.controller.restore(publisher_id)
-        else:
+        is_restored = self.controller.restore(publisher_id)
+        if not is_restored:
             print(self.__NOT_FOUND)
         self.press_enter_to_continue()
         self.clear_screen()
