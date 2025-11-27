@@ -1,3 +1,7 @@
+from dataclasses import dataclass
+
+
+@dataclass
 class Publisher:
 
     def __init__(self, publisher_id: str, legal_name: str, city: str, state: str, deleted: bool = False):

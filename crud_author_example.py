@@ -17,5 +17,3 @@ if __name__ == '__main__':
 
     controller.restore("100")
     controller.list()
-
-    AuthorDao.truncate()

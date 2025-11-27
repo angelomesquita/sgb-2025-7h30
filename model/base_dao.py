@@ -38,8 +38,3 @@ class BaseDao(ABC, Generic[T]):
     @abstractmethod
     def delete(cls, item_id: str) -> None:
         pass
-
-    @classmethod
-    @abstractmethod
-    def truncate(cls) -> None:
-        pass
