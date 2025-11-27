@@ -1,4 +1,4 @@
-from typing import List, Tuple
+from typing import Iterable, List, Tuple
 from model.publisher import Publisher
 from model.publisher_dao import PublisherDao
 from model.exceptions import PublisherNotFoundError
@@ -7,9 +7,9 @@ from model.exceptions import PublisherNotFoundError
 class PublisherRepository:
 
     @staticmethod
-    def _get_all_publishers() -> List[Publisher]:
+    def _get_all_publishers() -> Iterable[Publisher]:
         """Load all publishers from DAO (active and deleted)"""
-        return PublisherDao.load_all()
+        return PublisherDao.get_all()
 
     @staticmethod
     def get_publisher_by_id(publisher_id: str) -> Publisher:
