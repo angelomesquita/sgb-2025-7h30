@@ -3,7 +3,6 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 
 from controller.author_controller import AuthorController
-from repository.book_repository import BookRepository
 from validators.author_validator import AuthorValidator
 
 
@@ -105,7 +104,7 @@ class AuthorModule(tk.Toplevel):
             return
 
         try:
-            self.controller.register(author_id, name)
+            self.controller.register(author_id=author_id, name=name)
             messagebox.showinfo("Success", f"Author: '{name}' registered successfully.", parent=self)
             self.load_authors()
             self.clear_form()
@@ -123,7 +122,7 @@ class AuthorModule(tk.Toplevel):
             return
 
         try:
-            self.controller.update(self.selected_author_id, name)
+            self.controller.update(author_id=self.selected_author_id, name=name)
             messagebox.showinfo("Success", "Author updated successfully.", parent=self)
             self.load_authors()
             self.clear_form()
@@ -172,9 +171,12 @@ class AuthorModule(tk.Toplevel):
         selected = event.widget.selection()
         if not selected:
             return
+
         values = self.tree.item(selected[0], "values")
         self.selected_author_id = values[0]
+
         self.entry_id.delete(0, tk.END)
         self.entry_name.delete(0, tk.END)
+
         self.entry_id.insert(0, values[0])
         self.entry_name.insert(0, values[1])

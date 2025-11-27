@@ -12,10 +12,10 @@ if __name__ == '__main__':
     controller.update(100, name="G. Orwell")
     controller.list()
 
-    controller.delete(100)
+    controller.delete("100")
     controller.list()
 
-    controller.restore(100)
+    controller.restore("100")
     controller.list()
 
     AuthorDao.truncate()
