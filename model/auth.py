@@ -43,6 +43,3 @@ class Auth:
             return True
         except AuthenticationError:
             raise
-        except Exception as error:
-            auth_logger.error(f"Unexpected error during authentication: {error}")
-            raise
