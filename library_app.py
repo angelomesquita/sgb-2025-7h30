@@ -1,14 +1,10 @@
 import tkinter as tk
-
 from tkinter import ttk, messagebox
-from typing import Type
 
 from view.book_view import BookView
 from view.borrow_view import BorrowView
-from view.employee_view import EmployeeView
 from view.customer_view import CustomerView
-from view.publisher_view import PublisherView
-from view.view import View
+from view.employee_view import EmployeeView
 
 
 class LibraryApp(tk.Tk):
@@ -74,9 +70,10 @@ class LibraryApp(tk.Tk):
         self._open_module_window("Customer Module", CustomerView)
 
     def open_publisher_module(self) -> None:
-        self._open_module_window("Publisher Module", PublisherView)
+        from view.publisher_module import PublisherModule
+        PublisherModule(self)
 
-    def _open_module_window(self, title: str, view_module: Type[View]) -> None:
+    def _open_module_window(self, title: str, view_module) -> None:
         try:
             window = tk.Toplevel(self)
             window.title(title)
