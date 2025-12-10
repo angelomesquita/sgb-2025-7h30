@@ -101,3 +101,9 @@ class BookDao(BaseDao[Book]):
         with cls._get_connection() as connection:
             connection.execute("UPDATE books SET deleted = 1 WHERE isbn = ?", (isbn, ))
             connection.commit()
+
+    @classmethod
+    def restore(cls, isbn: str) -> None:
+        with cls._get_connection() as connection:
+            connection.execute("UPDATE books SET deleted = 0 WHERE isbn = ?", (isbn, ))
+            connection.commit()
