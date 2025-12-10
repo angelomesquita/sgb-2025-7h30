@@ -85,8 +85,16 @@ class BookDao(BaseDao[Book]):
         return books
 
     @classmethod
-    def get_by_id(cls, item_id: str, deleted: int = 0) -> Optional[T]:
-        pass
+    def get_by_id(cls, isbn: str, deleted: int = 0) -> Optional[Book]:
+        with cls._get_connection() as connection:
+            row = connection.execute(
+                "SELECT * FROM books WHERE isbn = ? AND deleted = ?", (isbn, deleted, )
+            ).fetchone()
+
+        if row is None:
+            return None
+
+        return cls._build_book_from_row(row)
 
     @classmethod
     def delete(cls, item_id: str) -> None:
