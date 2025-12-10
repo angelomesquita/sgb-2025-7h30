@@ -56,8 +56,33 @@ class BookDao(BaseDao[Book]):
             connection.commit()
 
     @classmethod
-    def get_all(cls) -> Iterable[T]:
-        pass
+    def _build_book_from_row(cls, row) -> Book:
+        author = AuthorRepository.get_author_by_id(row['author_id'])
+        publisher = PublisherRepository.get_publisher_by_id(row['publisher_id'])
+
+        return Book(
+            isbn=row['isbn'],
+            title=row['title'],
+            author=author,
+            publisher=publisher,
+            year=row['year'],
+            quantity=row['quantity'],
+            deleted=bool(row['deleted'])
+        )
+
+    @classmethod
+    def get_all(cls) -> Iterable[Book]:
+        with cls._get_connection() as connection:
+            rows = connection.execute(
+                "SELECT * FROM books WHERE deleted = 0"
+            ).fetchall()
+
+        books = []
+        for row in rows:
+            book = cls._build_book_from_row(row)
+            books.append(book)
+
+        return books
 
     @classmethod
     def get_by_id(cls, item_id: str, deleted: int = 0) -> Optional[T]:
