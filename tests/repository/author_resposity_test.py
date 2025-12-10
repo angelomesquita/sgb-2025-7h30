@@ -35,3 +35,12 @@ def test_get_author_by_id_raises_error(sample_authors):
     with patch.object(AuthorDao, 'get_all', return_value=sample_authors) as mock_load_all:
         with pytest.raises(AuthorNotFoundError, match="Author with id X999 not found."):
             AuthorRepository.get_author_by_id("X999")
+
+
+def test_get_author_options(sample_authors):
+    """Ensures options() returns the correct list with correct tuple."""
+    with patch.object(AuthorDao, 'get_all', return_value=sample_authors) as mock_load_all:
+        options = AuthorRepository.options()
+        expected = [(str(a.author_id), a.name) for a in sample_authors if not a.deleted]
+        assert options == expected
+        mock_load_all.assert_called_once()
