@@ -97,5 +97,7 @@ class BookDao(BaseDao[Book]):
         return cls._build_book_from_row(row)
 
     @classmethod
-    def delete(cls, item_id: str) -> None:
-        pass
+    def delete(cls, isbn: str) -> None:
+        with cls._get_connection() as connection:
+            connection.execute("UPDATE books SET deleted = 1 WHERE isbn = ?", (isbn, ))
+            connection.commit()
