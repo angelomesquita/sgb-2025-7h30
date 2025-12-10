@@ -39,7 +39,7 @@ def test_publisher_setters_update_attributes(publisher_default):
     Verifies that the Publisher's setters correctly update its attributes.
 
     Fixture:
-        - author_default: Provides a Publisher instance with default values.
+        - publisher_default: Provides a Publisher instance with default values.
     """
     publisher_default.publisher_id = "2"
     publisher_default.legal_name = publisher_default.legal_name + ' UPDATED'
