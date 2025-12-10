@@ -29,8 +29,31 @@ class BookDao(BaseDao[Book]):
             connection.commit()
 
     @classmethod
-    def save(cls, item: T) -> None:
-        pass
+    def save(cls, book: Book) -> None:
+        with cls._get_connection() as connection:
+            connection.execute(
+                """
+                INSERT INTO books (isbn, title, author_id, publisher_id, year, quantity, deleted)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+                ON CONFLICT (isbn) DO UPDATE SET
+                    title = excluded.title,
+                    author_id = excluded.author_id,
+                    publisher_id = excluded.publisher_id,
+                    year = excluded.year,
+                    quantity = excluded.quantity,
+                    deleted = excluded.deleted
+                """,
+                (
+                    book.isbn,
+                    book.title,
+                    book.author.author_id,
+                    book.publisher.publisher_id,
+                    book.year,
+                    book.quantity,
+                    int(bool(book.deleted))
+                )
+            )
+            connection.commit()
 
     @classmethod
     def get_all(cls) -> Iterable[T]:
