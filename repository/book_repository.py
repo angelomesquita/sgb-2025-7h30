@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import Iterable, List, Optional
 from model.book import Book
 from model.book_dao import BookDao
 from model.exceptions import BookNotAvailableError, BookNotFoundError
@@ -7,8 +7,8 @@ from model.exceptions import BookNotAvailableError, BookNotFoundError
 class BookRepository:
 
     @staticmethod
-    def get_all_books() -> List[Book]:
-        return BookDao.load_all()
+    def get_all_books() -> Iterable[Book]:
+        return BookDao.get_all()
 
     @staticmethod
     def get_book_by_isbn(isbn: str) -> Book:
@@ -42,27 +42,20 @@ class BookRepository:
         return results
 
     @staticmethod
-    def decrease_quantity(book_isbn: str, amount: int = 1) -> None:
-        books = BookRepository.get_all_books()
-        for book in books:
-            quantity = int(book.quantity)
-            if book.isbn == book_isbn:
-                if quantity - amount < 0:
-                    raise BookNotAvailableError(f"Book '{book.title}' is not available.")
-                quantity -= amount
-                book.quantity = quantity
-                break
-        BookDao.save_all(books)
+    def decrease_quantity(isbn: str, amount: int = 1) -> Optional[bool]:
+        book = BookRepository.get_book_by_isbn(isbn=isbn)
+
+        if (book.quantity - amount) < 0:
+            raise BookNotAvailableError(f"Book '{book.title}' is out of stock.")
+
+        book.quantity -= amount
+        BookDao.save(book)
+        return True
 
     @staticmethod
-    def increase_quantity(book_isbn: str, amount: int = 1) -> None:
-        books = BookRepository.get_all_books()
-        for book in books:
-            if book.isbn == book_isbn:
-                quantity = int(book.quantity)
-                quantity += amount
-                book.quantity = quantity
-                break
-        BookDao.save_all(books)
+    def increase_quantity(isbn: str, amount: int = 1) -> Optional[bool]:
+        book = BookRepository.get_book_by_isbn(isbn=isbn)
 
-
+        book.quantity += amount
+        BookDao.save(book)
+        return True
