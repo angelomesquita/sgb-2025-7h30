@@ -40,7 +40,7 @@ def test_get_book_by_id_return_book(sample_books, isbn, expected_title, expected
 
 def test_get_book_by_id_raises_error(sample_books):
     """Ensures get_book_by_id() raises BookNotFoundError when isbn is not found."""
-    with patch.object(BookDao, 'get_all', return_value=sample_books) as mock_load_all:
+    with patch.object(BookDao, 'get_all', return_value=sample_books):
         with pytest.raises(BookNotFoundError, match="Book with isbn X999 not found."):
             BookRepository.get_book_by_isbn("X999")
 
@@ -81,6 +81,7 @@ def test_decrease_quantity_of_book_raises_error_when_book_has_not_quantity(sampl
     with patch.object(BookDao, 'get_all', return_value=sample_books):
         with pytest.raises(BookNotAvailableError, match="Book 'Book 1' is out of stock."):
             BookRepository.decrease_quantity(isbn="9789789789781", amount=2)
+
 
 def test_increase_quantity_of_book(sample_books):
     with patch.object(BookDao, 'get_all', return_value=sample_books) as mock_load_all:
