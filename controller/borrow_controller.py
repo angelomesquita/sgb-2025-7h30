@@ -34,7 +34,7 @@ class BorrowController(BaseController[Borrow]):
 
     def register(self, borrow_id: str, book_isbn: str, employee_cpf: str, customer_cpf: str) -> None:
         try:
-            BookRepository.decrease_quantity(book_isbn=book_isbn)
+            BookRepository.decrease_quantity(isbn=book_isbn)
             super().register(borrow_id, book_isbn=book_isbn, employee_cpf=employee_cpf, customer_cpf=customer_cpf)
         except BookNotAvailableError as e:
             self.logger.error(str(e))
