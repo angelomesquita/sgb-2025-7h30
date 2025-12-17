@@ -2,7 +2,7 @@ import pytest
 
 from unittest.mock import patch
 from model.publisher import Publisher
-from model.publisher_dao import PublisherDao
+from model.publisher_dao import BookDao
 from repository.publisher_repository import PublisherRepository
 from model.exceptions import PublisherNotFoundError
 
@@ -24,7 +24,7 @@ def sample_publishers():
 ])
 def test_get_publisher_by_id_return_publisher(sample_publishers, publisher_id, expected_legal_name, expected_city, expected_state):
     """Ensures get_publisher_by_id() returns the correct Publisher when found."""
-    with patch.object(PublisherDao, 'get_all', return_value=sample_publishers) as mock_load_all:
+    with patch.object(BookDao, 'get_all', return_value=sample_publishers) as mock_load_all:
         publisher = PublisherRepository.get_publisher_by_id(publisher_id)
         assert publisher.legal_name == expected_legal_name
         assert publisher.city == expected_city
@@ -34,14 +34,14 @@ def test_get_publisher_by_id_return_publisher(sample_publishers, publisher_id, e
 
 def test_get_publisher_by_id_raises_error(sample_publishers):
     """Ensures get_publisher_by_id() raises PublisherNotFoundError when ID is not found."""
-    with patch.object(PublisherDao, 'get_all', return_value=sample_publishers) as mock_load_all:
+    with patch.object(BookDao, 'get_all', return_value=sample_publishers) as mock_load_all:
         with pytest.raises(PublisherNotFoundError, match="Publisher with id X999 not found."):
             PublisherRepository.get_publisher_by_id("X999")
 
 
 def test_get_publisher_options(sample_publishers):
     """Ensures options() returns the correct list with correct tuple."""
-    with patch.object(PublisherDao, 'get_all', return_value=sample_publishers) as mock_load_all:
+    with patch.object(BookDao, 'get_all', return_value=sample_publishers) as mock_load_all:
         options = PublisherRepository.options()
         expected = [(str(p.publisher_id), p.legal_name) for p in sample_publishers if not p.deleted]
         assert options == expected

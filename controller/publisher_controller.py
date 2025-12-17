@@ -1,6 +1,6 @@
 from controller.base_controller_sqlite import BaseControllerSqlite
 from model.publisher import Publisher
-from model.publisher_dao import PublisherDao
+from model.publisher_dao import BookDao
 from model.logger import publisher_logger
 from model.exceptions import (
     PublisherAlreadyExistsError,
@@ -13,7 +13,7 @@ from model.exceptions import (
 
 class PublisherController(BaseControllerSqlite[Publisher]):
 
-    dao_class = PublisherDao
+    dao_class = BookDao
     logger = publisher_logger
 
     AlreadyExistsError = PublisherAlreadyExistsError

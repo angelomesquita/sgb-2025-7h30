@@ -40,22 +40,22 @@ def test_save_inserts_new_publisher_and_get_by_id_returns_it():
     assert loaded.deleted == publisher.deleted
 
 
-def test_save_updates_existing_author():
-    """Ensures save() updates an existing author when the same author_id is used."""
-    author = Publisher(publisher_id="A001", legal_name="Original Name", city="City", state="ST")
-    PublisherDao.save(publisher=author)
+def test_save_updates_existing_publisher():
+    """Ensures save() updates an existing publisher when the same publisher_id is used."""
+    publisher = Publisher(publisher_id="A001", legal_name="Original Name", city="City", state="ST")
+    PublisherDao.save(publisher=publisher)
 
-    updated_author = Publisher(publisher_id="A001", legal_name="Updated Name", city="City", state="ST", deleted=True)
-    PublisherDao.save(publisher=updated_author)
+    updated_publisher = Publisher(publisher_id="A001", legal_name="Updated Name", city="City", state="ST", deleted=True)
+    PublisherDao.save(publisher=updated_publisher)
 
-    active = PublisherDao.get_by_id(publisher_id=updated_author.publisher_id)
+    active = PublisherDao.get_by_id(publisher_id=updated_publisher.publisher_id)
     assert active is None
 
-    deleted_author = PublisherDao.get_by_id(publisher_id=updated_author.publisher_id, deleted=1)
-    assert deleted_author is not None
-    assert deleted_author.publisher_id == updated_author.publisher_id
-    assert deleted_author.legal_name == updated_author.legal_name
-    assert deleted_author.deleted is True
+    deleted_publisher = PublisherDao.get_by_id(publisher_id=updated_publisher.publisher_id, deleted=1)
+    assert deleted_publisher is not None
+    assert deleted_publisher.publisher_id == updated_publisher.publisher_id
+    assert deleted_publisher.legal_name == updated_publisher.legal_name
+    assert deleted_publisher.deleted is True
 
 
 def test_get_by_id_returns_none_when_publisher_not_found():
